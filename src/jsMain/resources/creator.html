@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Connection Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Block Connection Puzzle</h1>
+<p>Click blocks to select source and target for connection. The game starts from the green block.</p>
+<div>
+    <input type="radio" id="empty" name="cell_type" value="EMPTY" checked><label for="empty">Empty</label>
+    <input type="radio" id="start" name="cell_type" value="START"><label for="start">Start</label>
+    <input type="radio" id="block" name="cell_type" value="BLOCK"><label for="block">Block</label>
+    <input type="radio" id="output_o" name="cell_type" value="OUTPUT_O"><label for="output_o">Output O</label>
+    <input type="radio" id="output_g" name="cell_type" value="OUTPUT_G"><label for="output_g">Output G</label>
+</div>
+<div>
+
+    <div class="inline-block">
+        <div id="grid"></div>
+    </div>
+    <div class="inline-block" id="output"></div>
+</div>
+<button id="play" onclick="mymodule.public.pages.Creator.play()">Play</button>
+
+<script src="mymodule.js"></script>
+<script>
+    mymodule.public.pages.Creator.main()
+</script>
+
+</body>
+</html>

@@ -2,8 +2,12 @@ package private
 
 data class Coordinate(val x: Int, val y: Int)
 
-class Grid(private val width: Int, private val height: Int) {
+class Grid(val width: Int, val height: Int) {
     private val cells = mutableMapOf<Coordinate, Cell>()
+
+    fun clearCell(coordinate: Coordinate) {
+        cells.remove(coordinate)
+    }
 
     fun setCell(coordinate: Coordinate, cell: Cell) {
         cells[coordinate] = cell

@@ -16,9 +16,12 @@
     </div>
     <div class="inline-block" id="output"></div>
 </div>
-<button id="play" onclick="mymodule.public.play()">Play</button>
-<button id="stop" onclick="mymodule.public.stop()" disabled>Stop</button>
+<button id="play" onclick="mymodule.public.pages.Play.play()">Play</button>
+<button id="stop" onclick="mymodule.public.pages.Play.stop()" disabled>Stop</button>
 <script src="mymodule.js"></script>
+<script>
+    mymodule.public.pages.Play.main()
+</script>
 
 </body>
 </html>
