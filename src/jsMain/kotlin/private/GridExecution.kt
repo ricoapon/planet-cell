@@ -23,8 +23,17 @@ class GridExecution(private val grid: Grid ) {
         for (activation in nextActivations) {
             val currentCoordinate = Coordinate(activation.current.x, activation.current.y)
             val currentCell = grid.getCell(currentCoordinate)!!
+
+            // Any action that comes back to start (and is not the first action) should just stop.
+            if (currentCell.type == CellType.START && activation.from.x >= 0) {
+                continue
+            }
+
             if (currentCell.type.name.startsWith("OUTPUT")) {
                 outputs.add(currentCell.type.name)
+
+                // We stop execution after it landed on an output.
+                continue
             }
 
             newNextActivations.addAll(
