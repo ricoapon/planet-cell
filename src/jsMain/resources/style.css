@@ -32,10 +32,7 @@ body {
     background-color: green;
 }
 
-.cell.output-orange {
-    background-color: orange;
-}
-.cell.output-green {
+.cell.output {
     background-color: orange;
 }
 
