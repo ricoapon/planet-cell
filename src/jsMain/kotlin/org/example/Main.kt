@@ -5,7 +5,7 @@ import kotlinx.browser.window
 import org.w3c.dom.HTMLElement
 
 enum class CellType(val cssClass: String) {
-    EMPTY("empty123"),
+    EMPTY("empty"),
     START("start"),
     BLOCK("block"),
     OUTPUT_ORANGE("output-orange"),
@@ -21,9 +21,6 @@ val gridData = Array(gridSize) { Array(gridSize) { Cell() } }
 fun main() {
     setupGridData()
     renderGrid()
-
-    // Expose functions in JS.
-    js("window.playAutomatically = org.example.playAutomatically()")
 }
 
 private fun setupGridData() {
@@ -46,32 +43,45 @@ private fun renderGrid() {
             val div = document.createElement("div") as HTMLElement
             div.classList.add("cell")
             div.classList.add(cell.type.cssClass)
+            if (isActive(x, y)) {
+                div.classList.add("active")
+            }
             grid.appendChild(div)
         }
     }
 }
 
+fun isActive(x: Int, y: Int): Boolean {
+    return showAsActive.any { it.x == x && it.y == y }
+}
+
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 fun playAutomatically() {
-    console.log("Hey")
-//    window.setTimeout(handler = { playAutomatically() }, 1000)
+    play()
+    if (showAsActive.isNotEmpty()) {
+        window.setTimeout(handler = { playAutomatically() }, 1000)
+    }
 }
 
 data class Coordinate(val x: Int, val y: Int)
 
 data class Activation(val from: Coordinate, val current: Coordinate)
 
-val nextActivations: MutableList<Activation> = mutableListOf()
+var showAsActive = listOf<Coordinate>()
+var nextActivations: MutableList<Activation> = mutableListOf(Activation(Coordinate(-1000, -1000), Coordinate(2, 2)))
 
 fun play() {
     val newNextActivations = mutableListOf<Activation>()
     val outputs = mutableListOf<String>()
 
+    showAsActive = nextActivations.map { it.current }
 
     for (activation in nextActivations) {
         val currentCoordinate = Coordinate(activation.current.x, activation.current.y)
         val currentCell = gridData[activation.current.y][activation.current.x]
         if (currentCell.type.name.startsWith("OUTPUT")) {
-            outputs += currentCell.type.name
+            outputs.add(currentCell.type.name)
         }
 
         for (neighbour in findNonEmptyOrthogonalNeighbours(activation.current.x, activation.current.y)) {
@@ -84,9 +94,12 @@ fun play() {
     if (outputs.isNotEmpty()) {
         val output = document.getElementById("output") as HTMLElement
         val text = document.createElement("p")
-        text.textContent = outputs.joinToString { ", " }
+        text.textContent = outputs.joinToString()
         output.appendChild(text)
     }
+
+    nextActivations = newNextActivations
+    renderGrid()
 }
 
 private fun findNonEmptyOrthogonalNeighbours(x: Int, y: Int): List<Coordinate> {
@@ -95,5 +108,10 @@ private fun findNonEmptyOrthogonalNeighbours(x: Int, y: Int): List<Coordinate> {
         Coordinate(x - 1, y),
         Coordinate(x, y + 1),
         Coordinate(x, y - 1),
-        ).filter { n -> gridData[n.y] != undefined && gridData[n.y][n.x] != undefined }
+    )
+        .filter { n -> n.x >= 0 }
+        .filter { n -> n.y >= 0 }
+        .filter { n -> n.x < gridSize }
+        .filter { n -> n.y < gridSize }
+        .filter { n -> gridData[n.y][n.x].type != CellType.EMPTY }
 }
