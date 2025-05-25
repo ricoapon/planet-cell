@@ -22,8 +22,7 @@ I have a few choices that seem acceptable, from preferable to least preferable:
 * Plain JS
 * Godot with exporting to the web
 
-I am the biggest fan of the first option, because that will make me learn about TeaVM. If I want to quickly get started,
-then I think Kotlin/JS is the easiest.
+I choose Kotlin/JS, because this is an improvement over plain JS. TeaVM doesn't work nicely with generating HTML.
 
 ## Random thoughts
 
