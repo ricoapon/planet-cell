@@ -10,8 +10,12 @@
 
 <h1>Block Connection Puzzle</h1>
 <p>Click blocks to select source and target for connection. The game starts from the green block.</p>
-<div id="grid"></div>
-<div id="output"></div>
+<div>
+    <div class="inline-block">
+        <div id="grid"></div>
+    </div>
+    <div class="inline-block" id="output"></div>
+</div>
 <button id="play" onclick="mymodule.public.play()">Play</button>
 <button id="stop" onclick="mymodule.public.stop()" disabled>Stop</button>
 <script src="mymodule.js"></script>

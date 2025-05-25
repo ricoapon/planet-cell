@@ -10,7 +10,16 @@ body {
     grid-template-rows: repeat(10, 40px);
     gap: 2px;
     justify-content: center;
-    margin: 20px auto;
+    padding-bottom: 20px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#output {
+    vertical-align: top;
+    min-width: 50px;
 }
 
 .cell {
