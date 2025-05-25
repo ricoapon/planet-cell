@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Block Connection Puzzle (Kotlin/JS)</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Connection Puzzle</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <h1>Block Connection Puzzle</h1>
-<p>Start block is green. Outputs are orange. Connections are preset.</p>
+<p>Click blocks to select source and target for connection. The game starts from the green block.</p>
 <div id="grid"></div>
-<button onclick="window.resetConnections()">Reset Connections</button>
+<div id="output"></div>
+<button onclick="playAutomatically()">Play automatically</button>
 <script src="block-connection-puzzle-kotlinjs.js"></script>
+
 </body>
 </html>

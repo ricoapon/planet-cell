@@ -32,7 +32,10 @@ body {
     background-color: green;
 }
 
-.cell.output {
+.cell.output-orange {
+    background-color: orange;
+}
+.cell.output-green {
     background-color: orange;
 }
 
@@ -40,6 +43,10 @@ body {
     position: absolute;
     background-color: black;
     z-index: 1;
+}
+
+.active {
+    border: dashed red;
 }
 
 .connection.horizontal {
