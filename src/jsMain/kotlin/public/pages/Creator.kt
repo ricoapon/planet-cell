@@ -55,4 +55,8 @@ object Creator {
     fun play() {
         window.location.href = "/?code=${grid.convertToCode()}"
     }
+
+    fun clear() {
+        window.location.href = "/creator.html"
+    }
 }
