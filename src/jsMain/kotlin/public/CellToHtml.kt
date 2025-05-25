@@ -24,6 +24,11 @@ fun cellToHtml(cell: Cell?, isActive: Boolean): HTMLElement {
             div.classList.add("output")
             div.textContent = "G"
         }
+
+        CellType.STOP_AFTER_1 -> {
+            div.classList.add("stop")
+            div.textContent = "1"
+        }
     }
 
     if (isActive) {

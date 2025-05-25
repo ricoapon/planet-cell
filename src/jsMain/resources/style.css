@@ -44,6 +44,9 @@ body {
 .cell.output {
     background-color: orange;
 }
+.cell.stop {
+    background-color: blue;
+}
 
 .connection {
     position: absolute;

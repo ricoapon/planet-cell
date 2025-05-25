@@ -5,6 +5,7 @@ enum class CellType {
     BLOCK,
     OUTPUT_O,
     OUTPUT_G,
+    STOP_AFTER_1,
 }
 
 data class Cell(var type: CellType)

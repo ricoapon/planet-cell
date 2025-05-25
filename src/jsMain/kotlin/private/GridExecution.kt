@@ -2,9 +2,10 @@ package private
 
 data class Activation(val from: Coordinate, val current: Coordinate)
 
-class GridExecution(private val grid: Grid ) {
+class GridExecution(private val grid: Grid) {
     private var showAsActive: Set<Coordinate>
     private var nextActivations: MutableList<Activation>
+    private val stopAfter = mutableSetOf<Coordinate>()
 
     init {
         nextActivations = grid.getCellsOfType(CellType.START)
@@ -17,6 +18,7 @@ class GridExecution(private val grid: Grid ) {
     fun nextStep(): String? {
         val newNextActivations = mutableListOf<Activation>()
         val outputs = mutableListOf<String>()
+        val addToStopAfter = mutableSetOf<Coordinate>()
 
         showAsActive = nextActivations.map { it.current }.toSet()
 
@@ -36,6 +38,13 @@ class GridExecution(private val grid: Grid ) {
                 continue
             }
 
+            if (currentCell.type == CellType.STOP_AFTER_1) {
+                if (stopAfter.contains(currentCoordinate)) {
+                    continue
+                }
+                addToStopAfter.add(currentCoordinate)
+            }
+
             newNextActivations.addAll(
                 grid.getOrthogonalNeighbours(currentCoordinate)
                     .filter { it != activation.from }
@@ -44,11 +53,12 @@ class GridExecution(private val grid: Grid ) {
         }
 
         nextActivations = newNextActivations
+        stopAfter.addAll(addToStopAfter)
 
         if (outputs.isEmpty()) {
             return null
         }
-        return outputs.joinToString("") { it.substringAfter('_')}
+        return outputs.joinToString("") { it.substringAfter('_') }
     }
 
     fun isActive(coordinate: Coordinate): Boolean {
