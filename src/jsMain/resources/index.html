@@ -12,7 +12,8 @@
 <p>Click blocks to select source and target for connection. The game starts from the green block.</p>
 <div id="grid"></div>
 <div id="output"></div>
-<button onclick="mymodule.public.playAutomatically()">Play automatically</button>
+<button id="play" onclick="mymodule.public.play()">Play</button>
+<button id="stop" onclick="mymodule.public.stop()" disabled>Stop</button>
 <script src="mymodule.js"></script>
 
 </body>

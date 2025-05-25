@@ -4,16 +4,28 @@ package public
 
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
 import private.*
+import kotlin.properties.Delegates
 
 const val gridSize = 10
 val grid = Grid(gridSize, gridSize)
 var gridExecution: GridExecution? = null
 
+// HTML elements.
+val htmlGrid = document.getElementById("grid") as HTMLElement
+val htmlOutput = document.getElementById("output") as HTMLElement
+val htmlButtonPlay = document.getElementById("play") as HTMLButtonElement
+val htmlButtonStop = document.getElementById("stop") as HTMLButtonElement
+
 fun main() {
     setupGridData()
     renderGrid()
+}
+
+private fun renderGrid() {
+    renderGridToHtml(htmlGrid, grid, gridExecution)
 }
 
 private fun setupGridData() {
@@ -27,19 +39,6 @@ private fun setupGridData() {
     grid.setCell(Coordinate(4, 2), Cell(CellType.OUTPUT_G))
 }
 
-private fun renderGrid() {
-    val htmlGrid = document.getElementById("grid") as HTMLElement
-    htmlGrid.innerHTML = ""
-    for (y in 0 until gridSize) {
-        for (x in 0 until gridSize) {
-            val coordinate = Coordinate(x, y)
-            val cell = grid.getCell(coordinate)
-            val div = cellToHtml(cell, gridExecution?.isActive(coordinate) ?: false)
-            htmlGrid.appendChild(div)
-        }
-    }
-}
-
 private fun addWord(word: String) {
     val output = document.getElementById("output") as HTMLElement
     val text = document.createElement("p")
@@ -47,10 +46,15 @@ private fun addWord(word: String) {
     output.appendChild(text)
 }
 
+var interval by Delegates.notNull<Int>()
+
 @JsExport
-fun playAutomatically() {
+fun play() {
     if (gridExecution == null) {
         gridExecution = GridExecution(grid)
+        htmlOutput.innerHTML = ""
+        htmlButtonPlay.disabled = true
+        htmlButtonStop.disabled = false
     }
 
     val response = gridExecution!!.nextStep()
@@ -60,13 +64,17 @@ fun playAutomatically() {
 
     renderGrid()
     if (gridExecution!!.isRunning()) {
-        window.setTimeout(handler = { playAutomatically() }, 1000)
+        interval = window.setTimeout(handler = { play() }, 250)
     } else {
-        gridExecution = null
+        stop()
     }
 }
 
 @JsExport
 fun stop() {
     gridExecution = null
+    window.clearInterval(interval)
+    renderGrid()
+    htmlButtonPlay.disabled = false
+    htmlButtonStop.disabled = true
 }
