@@ -25,10 +25,24 @@
     <div class="inline-block" id="output"></div>
 </div>
 <button id="play" onclick="mymodule.public.pages.Creator.play()">Play</button>
+<textarea id="code" disabled></textarea>
+<button onclick="copyToClipboard()">Copy code</button>
 
 <script src="mymodule.js"></script>
 <script>
     mymodule.public.pages.Creator.main()
+
+    function copyToClipboard() {
+        // Get the text field
+        const copyText = document.getElementById("code");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+    }
 </script>
 
 </body>

@@ -4,14 +4,14 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
+import org.w3c.dom.url.URLSearchParams
 import private.*
 import public.renderGridToHtml
-import kotlin.properties.Delegates
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object Play {
-    private val grid = Grid(10, 10)
+    private lateinit var grid: Grid
     private var gridExecution: GridExecution? = null
 
     // HTML elements.
@@ -30,14 +30,20 @@ object Play {
     }
 
     private fun setupGridData() {
-        grid.setCell(Coordinate(2, 2), Cell(CellType.START))
-        grid.setCell(Coordinate(2, 3), Cell(CellType.BLOCK))
-        grid.setCell(Coordinate(2, 4), Cell(CellType.OUTPUT_O))
-        grid.setCell(Coordinate(3, 4), Cell(CellType.BLOCK))
-        grid.setCell(Coordinate(4, 4), Cell(CellType.OUTPUT_G))
+        val urlParams = URLSearchParams(window.location.search)
+        if (urlParams.has("code")) {
+            grid = Grid.createFromCode(urlParams.get("code")!!)
+        } else {
+            grid = Grid(10, 10)
+            grid.setCell(Coordinate(2, 2), Cell(CellType.START))
+            grid.setCell(Coordinate(2, 3), Cell(CellType.BLOCK))
+            grid.setCell(Coordinate(2, 4), Cell(CellType.OUTPUT_O))
+            grid.setCell(Coordinate(3, 4), Cell(CellType.BLOCK))
+            grid.setCell(Coordinate(4, 4), Cell(CellType.OUTPUT_G))
 
-        grid.setCell(Coordinate(3, 2), Cell(CellType.BLOCK))
-        grid.setCell(Coordinate(4, 2), Cell(CellType.OUTPUT_G))
+            grid.setCell(Coordinate(3, 2), Cell(CellType.BLOCK))
+            grid.setCell(Coordinate(4, 2), Cell(CellType.OUTPUT_G))
+        }
     }
 
     private fun addWord(word: String) {
@@ -47,7 +53,7 @@ object Play {
         output.appendChild(text)
     }
 
-    private var interval by Delegates.notNull<Int>()
+    private var interval: Int? = null
 
     fun play() {
         if (gridExecution == null) {
@@ -72,10 +78,15 @@ object Play {
 
     fun stop() {
         gridExecution = null
-        window.clearInterval(interval)
+        if (interval != null) {
+            window.clearInterval(interval!!)
+        }
         renderGrid()
         htmlButtonPlay.disabled = false
         htmlButtonStop.disabled = true
     }
 
+    fun moveToCreator() {
+        window.location.href = "/creator.html?code=${grid.convertToCode()}"
+    }
 }
