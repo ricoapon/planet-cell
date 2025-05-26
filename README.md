@@ -10,6 +10,10 @@ ChatGPT chat used for inspiration: https://chatgpt.com/share/6831c69e-4728-8008-
 
 Visual inspiration: https://store.steampowered.com/app/3431440/Sound_Blocks/
 
+Soundtracks: https://soundimage.org/puzzle-music/
+
+Sound effects: https://sonniss.com/gameaudiogdc/
+
 ## Technical setup
 
 I want the game to be playable in the browser. I don't want to use NPM-like tools that are going to be annoying to maintain.
@@ -31,3 +35,11 @@ as a string (like FEN). Then make it possible to play the game based on the nota
 play around without programming too much.
 
 Use hexagonal grid with similar rules. Makes it a completely different game!
+
+## TODO
+
+Step 2: Make the goal part of the grid. Stop playing if the goal is reached or output doesn't match goal.
+Step 3: Be able to toggle blocks on the play screen.
+Step 4: Implement cells where the cell type has a value. Output has a letter.
+Step 5: Add control blocks pass after N or only pass first N.
+Step 6: Switch to Godot.
