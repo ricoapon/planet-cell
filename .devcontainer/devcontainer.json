@@ -12,8 +12,10 @@
 		"vscode": {
 			"extensions": [
 				"vscjava.vscode-java-pack",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"fwcd.kotlin"
 			]
 		}
-	}
+	},
+	"forwardPorts": [8080]
 }
