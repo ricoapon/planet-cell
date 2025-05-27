@@ -7,6 +7,7 @@ data class Coordinate(val x: Int, val y: Int)
 
 class Grid(val width: Int, val height: Int) {
     private val cells = mutableMapOf<Coordinate, Cell>()
+    private var output = listOf<String>("G")
 
     fun clearCell(coordinate: Coordinate) {
         cells.remove(coordinate)
@@ -39,11 +40,22 @@ class Grid(val width: Int, val height: Int) {
         return cells.filter { it.value.type == type }.map { it.key }
     }
 
+    fun setOutput(output: List<String>) {
+        this.output = output;
+    }
+
+    fun getOutput(): List<String> {
+        return output
+    }
+
     companion object {
         @OptIn(ExperimentalEncodingApi::class)
         fun createFromCode(codeBase64: String): Grid {
             val code = Base64.decode(codeBase64.encodeToByteArray()).decodeToString().split(";").toMutableList()
+            console.log("Output", code[2])
             val grid = Grid(code[0].toInt(), code[1].toInt())
+            grid.setOutput(code[2].split("_"))
+            code.removeAt(0)
             code.removeAt(0)
             code.removeAt(0)
             for (c in code) {
@@ -59,7 +71,7 @@ class Grid(val width: Int, val height: Int) {
 
     @OptIn(ExperimentalEncodingApi::class)
     fun convertToCode(): String {
-        var code = "$width;$height"
+        var code = "$width;$height;${output.joinToString("_")}"
         if (cells.isNotEmpty()) {
             code += ";${cells.map { "${it.key.x},${it.key.y},${it.value.type.name}" }.joinToString(";")}"
         }

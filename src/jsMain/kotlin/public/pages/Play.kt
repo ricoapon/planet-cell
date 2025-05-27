@@ -17,16 +17,32 @@ object Play {
     // HTML elements.
     private val htmlGrid = document.getElementById("grid") as HTMLElement
     private val htmlOutput = document.getElementById("output") as HTMLElement
+    private val htmlExpectedOutput = document.getElementById("expectedOutput") as HTMLElement
     private val htmlButtonPlay = document.getElementById("play") as HTMLButtonElement
     private val htmlButtonStop = document.getElementById("stop") as HTMLButtonElement
 
     fun main() {
         setupGridData()
         renderGrid()
+
+        for (s in grid.getOutput()) {
+            val text = document.createElement("p")
+            text.textContent = s
+            htmlExpectedOutput.appendChild(text)
+        }
     }
 
     private fun renderGrid() {
         renderGridToHtml(htmlGrid, grid, gridExecution)
+
+        if (gridExecution != null) {
+            htmlOutput.innerHTML = ""
+            for (s in gridExecution!!.getOutput()) {
+                val text = document.createElement("p")
+                text.textContent = s
+                htmlOutput.appendChild(text)
+            }
+        }
     }
 
     private fun setupGridData() {
@@ -46,13 +62,6 @@ object Play {
         }
     }
 
-    private fun addWord(word: String) {
-        val output = document.getElementById("output") as HTMLElement
-        val text = document.createElement("p")
-        text.textContent = word
-        output.appendChild(text)
-    }
-
     private var interval: Int? = null
 
     fun play() {
@@ -63,10 +72,7 @@ object Play {
             htmlButtonStop.disabled = false
         }
 
-        val response = gridExecution!!.nextStep()
-        if (response != null) {
-            addWord(response)
-        }
+        gridExecution!!.nextStep()
 
         renderGrid()
         if (gridExecution!!.isRunning()) {

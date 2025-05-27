@@ -5,6 +5,7 @@ import kotlinx.browser.window
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.url.URLSearchParams
+import org.w3c.dom.HTMLTextAreaElement
 import private.Cell
 import private.CellType
 import private.Coordinate
@@ -17,6 +18,7 @@ object Creator {
     private var grid = Grid(10, 10)
     private val htmlGrid = document.getElementById("grid") as HTMLElement
     private val htmlCode = document.getElementById("code") as HTMLElement
+    private val htmlOutput = document.getElementById("output") as HTMLTextAreaElement
 
     fun main() {
         val urlParams = URLSearchParams(window.location.search)
@@ -29,6 +31,8 @@ object Creator {
 
     private fun renderGrid() {
         renderGridToHtml(htmlGrid, grid, null, onClick = { squareClicked(it.x, it.y) })
+        grid.setOutput(htmlOutput.innerText.trim('\n').split("\n"))
+        console.log("Setting output to ", htmlOutput.innerHTML)
         htmlCode.textContent = grid.convertToCode()
     }
 

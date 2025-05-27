@@ -6,6 +6,8 @@ class GridExecution(private val grid: Grid) {
     private var showAsActive: Set<Coordinate>
     private var nextActivations: MutableList<Activation>
     private val stopAfter = mutableSetOf<Coordinate>()
+    private val expectedOutput: List<String>
+    private val output = mutableListOf<String>()
 
     init {
         nextActivations = grid.getCellsOfType(CellType.START)
@@ -13,11 +15,13 @@ class GridExecution(private val grid: Grid) {
 
         // Fill it with some coordinate to indicate we are running.
         showAsActive = setOf(Coordinate(-1000, -1000))
+
+        expectedOutput = grid.getOutput()
     }
 
-    fun nextStep(): String? {
+    fun nextStep() {
         val newNextActivations = mutableListOf<Activation>()
-        val outputs = mutableListOf<String>()
+        val currentStepOutput = mutableListOf<String>()
         val addToStopAfter = mutableSetOf<Coordinate>()
 
         showAsActive = nextActivations.map { it.current }.toSet()
@@ -32,7 +36,7 @@ class GridExecution(private val grid: Grid) {
             }
 
             if (currentCell.type.name.startsWith("OUTPUT")) {
-                outputs.add(currentCell.type.name)
+                currentStepOutput.add(currentCell.type.name)
 
                 // We stop execution after it landed on an output.
                 continue
@@ -55,10 +59,39 @@ class GridExecution(private val grid: Grid) {
         nextActivations = newNextActivations
         stopAfter.addAll(addToStopAfter)
 
-        if (outputs.isEmpty()) {
-            return null
+        console.log(currentStepOutput)
+
+        if (currentStepOutput.isNotEmpty()) {
+            output.add(currentStepOutput.joinToString("") { it.substringAfter('_') })
         }
-        return outputs.joinToString("") { it.substringAfter('_') }
+
+        if (output == expectedOutput || isExpectedOutputIncorrect()) {
+            // We are done.
+            console.log("We are done!", output == expectedOutput, isExpectedOutputIncorrect())
+            nextActivations = mutableListOf()
+        }
+    }
+
+    private fun isExpectedOutputIncorrect(): Boolean {
+        if (expectedOutput.size == 0) {
+            return false
+        }
+
+        for (i in 0 until expectedOutput.size) {
+            if (i >= output.size) {
+                break
+            }
+
+            if (expectedOutput[i] != output[i]) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    fun getOutput(): List<String> {
+        return output
     }
 
     fun isActive(coordinate: Coordinate): Boolean {
