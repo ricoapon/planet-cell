@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy4dooi088si3"]
+
+[ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://Scenes/components/Grid.tscn" id="1_1rerr"]
+[ext_resource type="Texture2D" uid="uid://dbagaicdpyvet" path="res://assets/blocks/environment_01.png" id="2_xhh6f"]
+[ext_resource type="Script" uid="uid://pbn6ikddpeii" path="res://Scenes/texture_rect.gd" id="3_cayip"]
+
+[node name="Menu" type="Node2D"]
+
+[node name="GridExample" type="ColorRect" parent="."]
+offset_right = 500.0
+offset_bottom = 500.0
+color = Color(0, 0, 0, 1)
+
+[node name="Grid" parent="." instance=ExtResource("1_1rerr")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="Bottom" type="ColorRect" parent="."]
+offset_top = 500.0
+offset_right = 500.0
+offset_bottom = 600.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 13.0
+offset_top = 514.0
+offset_right = 77.0
+offset_bottom = 578.0
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("2_xhh6f")
+stretch_mode = 3
+script = ExtResource("3_cayip")

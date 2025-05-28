@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch60wr0xnnchv"]
+
+[ext_resource type="Script" uid="uid://cnn6jbl3n8cdc" path="res://Scenes/components/block.gd" id="1_yo68c"]
+[ext_resource type="Texture2D" uid="uid://dbagaicdpyvet" path="res://assets/blocks/environment_01.png" id="2_p8v0j"]
+
+[node name="Block" type="Node2D"]
+script = ExtResource("1_yo68c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.813432, 0.700033, 0.882981, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_p8v0j")
