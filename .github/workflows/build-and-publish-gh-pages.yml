@@ -1,0 +1,50 @@
+name: "Publish to GitHub Pages"
+env:
+  GODOT_VERSION: 4.4.1
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Move HTML5 templates into position
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Build
+        run: godot -v --export-release --headless "Web" build/web/index.html project.godot
+
+      # This file is downloaded from https://github.com/gzuidhof/coi-serviceworker.
+      - name: Add coi-service-worker
+        run: |
+          sed -i '4 i <script src="coi-serviceworker.min.js"></script>' build/web/index.html
+
+      - name: Create gh-pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web/
+
+  deploy-to-gh-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    if: success()
+    # Required permissions for upload-pages-artifact.
+    permissions:
+      pages: write
+      id-token: write
+    # Deploy to the github-pages environment.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish
+        uses: actions/deploy-pages@v4
