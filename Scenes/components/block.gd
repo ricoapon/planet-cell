@@ -1,4 +1,8 @@
-extends Node2D
+# We use a ColorRect because:
+# 1. We can easily catch mouse events on the sprite (which doesn't have a click event, but ColorRect does).
+# 2. We can scale the size of the ColorRect and Sprite2D will automatically scale with it.
+# 3. For debugging, we can give it a color (instead of transparent) so we can see what is happening.
+extends ColorRect
 class_name Block
 
 const ACTUAL_SIZE: float = 64
@@ -6,14 +10,11 @@ const ACTUAL_SIZE: float = 64
 @export var grid_pos: Vector2i
 
 func _ready():
-	# The variable grid_pos will give us the position of the top left of the square
-	# we want to land it. We want to move to the middle of that square.
-	position = Vector2(0.5 + grid_pos.x, 0.5 + grid_pos.y) * grid_cell_size
-	
-	$ColorRect.scale = Vector2(ACTUAL_SIZE / grid_cell_size, ACTUAL_SIZE / grid_cell_size)
-	set_sprite_size($Sprite2D, Vector2(grid_cell_size * 0.75, grid_cell_size * 0.75))
+	position = Vector2(grid_pos.x, grid_pos.y) * grid_cell_size
+	scale = Vector2(grid_cell_size / ACTUAL_SIZE, grid_cell_size / ACTUAL_SIZE)
 
-func set_sprite_size(sprite: Sprite2D, desired_size: Vector2):
-	if sprite.texture:
-		var texture_size = sprite.texture.get_size()
-		sprite.scale = desired_size / texture_size
+signal drag_start(grid_position: Vector2i)
+
+func _gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		drag_start.emit(grid_pos)

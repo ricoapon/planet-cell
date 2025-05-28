@@ -8,7 +8,7 @@ offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
-color = Color(0, 0, 0, 0)
+color = Color(0.617063, 0.0546624, 0.390058, 1)
 script = ExtResource("1_yo68c")
 grid_cell_size = 64
 
