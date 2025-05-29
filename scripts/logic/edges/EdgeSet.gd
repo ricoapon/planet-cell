@@ -8,11 +8,13 @@ func add(edge: Edge):
 	edges[_edge_to_string(edge)] = edge
 func contains(edge: Edge) -> bool:
 	return edges.has(_edge_to_string(edge))
-func remove(edge: Edge):
+func erase(edge: Edge):
 	edges.erase(_edge_to_string(edge))
+func find_edge(from: Coordinate, to: Coordinate) -> Edge:
+	return edges[_edge_to_string(Edge.new(from, to))]
 
 func _edge_to_string(edge: Edge) -> String:
-	return edge.from.to_string() + ":" + edge.to.to_string()
+	return edge.as_string()
 
 func find_edges_connecting_to(coordinate: Coordinate) -> Array[Edge]:
 	var result: Array[Edge] = []
