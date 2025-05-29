@@ -12,7 +12,7 @@ const CELL_SIZE = 32
 var grid: Grid = Grid.new(10, 10)
 
 var blocks: Dictionary[Coordinate, BlockView] = {}
-var lines: LineDictionary = LineDictionary.new()
+var edge_views: EdgeViewDictionary = EdgeViewDictionary.new()
 
 func _ready():
 	# Make sure the grid is the size we need for drag and drop stuff.
@@ -55,14 +55,13 @@ func on_erase_block(coordinate: Coordinate):
 	grid.erase_block(coordinate)
 	for edge in grid.neighbours(coordinate):
 		grid.erase_edge(edge)
-		var line = lines.get_line(edge.from, edge.to)
-		if line != null:
-			lines.remove_line(line)
-			line.queue_free()
+		var edge_view = edge_views.get_edge_view(edge.from, edge.to)
+		if edge_view != null:
+			on_erase_edge(edge_view)
 
-func on_erase_line(line: Line2D):
-	lines.remove_line(line)
-	line.queue_free()
+func on_erase_edge(edge: EdgeView):
+	edge_views.erase_edge(edge)
+	edge.queue_free()
 
 var start_drag_coordinate = null
 
@@ -78,24 +77,18 @@ func _input(event):
 		for coordinate in blocks.keys():
 			var block = blocks[coordinate]
 			if block.get_global_rect().has_point(mouse_pos):
-				add_line(start_drag_coordinate, coordinate)
+				add_edge(start_drag_coordinate, coordinate)
 				break
 		start_drag_coordinate = null
 
-func add_line(from: Coordinate, to: Coordinate):
+func add_edge(from: Coordinate, to: Coordinate):
 	# It can happen that the UI wants to draw from a block to itself.
 	# Obviously, we don't want this.
 	if (from.equals(to)):
 		return
 	
 	grid.add_edge(from, to)
-	var line = Line2D.new()
-	line.z_index = 1
-	line.default_color = Color.RED
-	line.width = 4
-	var from_middle = (Vector2(from.x + 0.5, from.y + 0.5)) * CELL_SIZE
-	var to_middle = (Vector2(to.x + 0.5, to.y + 0.5)) * CELL_SIZE
-	line.add_point(from_middle)
-	line.add_point(to_middle)
-	add_child(line)
-	lines.add(line, from, to)
+	var edge = EdgeView.new(from, to, CELL_SIZE)
+	edge.z_index = 1
+	add_child(edge)
+	edge_views.add(edge)

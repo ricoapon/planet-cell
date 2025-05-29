@@ -1,27 +1,22 @@
-class_name LineDictionary
+class_name EdgeViewDictionary
 extends RefCounted
 
-var lines: Dictionary[String, Line2D] = {}
-var coordinates: Dictionary[Line2D, Array] = {}
+var edges: Dictionary[String, EdgeView] = {}
 
-func add(line: Line2D, from: Coordinate, to: Coordinate):
+func add(edge: EdgeView):
+	var key = _create_key(edge.from, edge.to)
+	edges[key] = edge
+
+func get_edge_view(from: Coordinate, to: Coordinate) -> EdgeView:
 	var key = _create_key(from, to)
-	lines[key] = line
-	coordinates[line] = [from, to]
+	return edges[key]
 
-func get_line(from: Coordinate, to: Coordinate) -> Line2D:
-	var key = _create_key(from, to)
-	return lines[key]
-
-func get_coordinates(line: Line2D) -> Array[Coordinate]:
-	return coordinates[line] as Array[Coordinate]
-
-func remove_line(line: Line2D):
-	var key = _create_key(coordinates[line][0], coordinates[line][1])
-	lines.erase(key)
-	coordinates.erase(line)
+func erase_edge(edge: EdgeView):
+	var key = _create_key(edge.from, edge.to)
+	edges.erase(key)
 
 func _create_key(from: Coordinate, to: Coordinate):
+
 	# A line from A to B is also a line from B to A. We sort the coordinates such
 	# that we have a consistent way of defining A. Which way we choose doesn't matter
 	# so much. We choose smaller coordinate first, first looking at x.
