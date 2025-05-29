@@ -54,12 +54,11 @@ func on_erase_block(coordinate: Coordinate):
 	blocks.erase(coordinate)
 	grid.erase_block(coordinate)
 	for edge in grid.neighbours(coordinate):
-		grid.erase_edge(edge)
 		var edge_view = edge_views.get_edge_view(edge.from, edge.to)
-		if edge_view != null:
-			on_erase_edge(edge_view)
+		on_erase_edge(edge_view)
 
 func on_erase_edge(edge: EdgeView):
+	grid.erase_edge(grid.get_edge(edge.from, edge.to))
 	edge_views.erase_edge(edge)
 	edge.queue_free()
 
@@ -87,8 +86,13 @@ func add_edge(from: Coordinate, to: Coordinate):
 	if (from.equals(to)):
 		return
 	
+	# We also only allow horizontal or vertical lines.
+	if from.x != to.x and from.y != to.y:
+		return
+	
 	grid.add_edge(from, to)
 	var edge = EdgeView.new(from, to, CELL_SIZE)
 	edge.z_index = 1
 	add_child(edge)
 	edge_views.add(edge)
+	edge.connect("erase_me", on_erase_edge)

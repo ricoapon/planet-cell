@@ -24,6 +24,8 @@ func add_edge(from: Coordinate, to: Coordinate):
 	edges.add(Edge.new(from, to))
 func erase_edge(edge: Edge):
 	edges.erase(edge)
+func get_edge(from: Coordinate, to: Coordinate) -> Edge:
+	return edges.find_edge(from, to)
 
 func neighbours(c: Coordinate) -> Array[Edge]:
 	return edges.find_edges_connecting_to(c).filter(func(e): return edges.contains(e)) as Array[Edge]
