@@ -1,7 +1,6 @@
 extends Control
 
-@onready var BlockScene = preload("res://scenes/components/Block.tscn")
-@onready var StartBlockScene = preload("res://scenes/components/StartBlock.tscn")
+@onready var BlockScene = preload("res://scenes/components/blocks/BlockView.tscn")
 
 @export var width_in_pixels: int = 480
 @export var height_in_pixels: int = 480
@@ -10,7 +9,7 @@ var width_in_cells = floor(float(width_in_pixels) / CELL_SIZE)
 var height_in_cells = floor(float(height_in_pixels) / CELL_SIZE)
 const CELL_SIZE = 32
 
-var blocks = {}
+var grid = Grid.new(10, 10)
 
 func _ready():
 	# Make sure the grid is the size we need for drag and drop stuff.
@@ -28,45 +27,40 @@ func _draw():
 		var to = Vector2i(width_in_pixels, from.y)
 		draw_line(from, to, Color.html("#AEB2B5"))
 
-	place_block(Vector2i(2, 2))
-	place_block(Vector2i(2, 3))
-	place_block(Vector2i(5, 5))
-
-func place_block(pos: Vector2i):
-	var block = BlockScene.instantiate()
-	block.grid_pos = pos
-	block.grid_cell_size = CELL_SIZE
-	add_child(block)
-	blocks[pos] = block
-	block.connect("drag_start", on_start_block_drag)
-	block.z_index = 2
+func place_block(coordinate: Coordinate, block: AbstractBlock):
+	var block_scene = BlockScene.instantiate()
+	block_scene.init(coordinate, CELL_SIZE, block)
+	grid.setBlock(coordinate, block)
+	add_child(block_scene)
+	block_scene.connect("drag_start", on_start_block_drag)
+	block_scene.z_index = 2
 
 func _can_drop_data(_at_position, data):
-	return data == "BlockType:Basic"
+	return data is AbstractBlock
 
-func _drop_data(at_position, _data):
+func _drop_data(at_position, data):
 	var x = floor(float(at_position.x) / CELL_SIZE)
 	var y = floor(float(at_position.y) / CELL_SIZE)
-	place_block(Vector2i(x, y))
+	place_block(Coordinate.new(x, y), data)
 
 
-var start_drag_grid_position = null
+var start_drag_coordinate = null
 
-func on_start_block_drag(grid_position: Vector2i):
-	start_drag_grid_position = grid_position
+func on_start_block_drag(coordinate: Coordinate):
+	start_drag_coordinate = coordinate
 
-func _input(event):
-	# If dragging:
-	if start_drag_grid_position != null and event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var mouse_pos = get_global_mouse_position()
-
-		# Find block under mouse
-		for pos in blocks.keys():
-			var block = blocks[pos]
-			if block.get_global_rect().has_point(mouse_pos):
-				add_line(start_drag_grid_position, pos)
-				break
-		start_drag_grid_position = null
+#func _input(event):
+	## If dragging:
+	#if start_drag_grid_position != null and event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		#var mouse_pos = get_global_mouse_position()
+#
+		## Find block under mouse
+		#for pos in blocks.keys():
+			#var block = blocks[pos]
+			#if block.get_global_rect().has_point(mouse_pos):
+				#add_line(start_drag_grid_position, pos)
+				#break
+		#start_drag_grid_position = null
 
 func add_line(from_grid_pos: Vector2i, to_grid_pos: Vector2i):
 	var line = Line2D.new()

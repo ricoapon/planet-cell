@@ -9,4 +9,5 @@ func _get_drag_data(_at_position: Vector2):
 	preview.modulate = Color(1, 1, 1, 0.8)
 
 	set_drag_preview(c)
-	return "BlockType:Basic"
+	# The data must be the model of the block.
+	return SplitBlock.new()

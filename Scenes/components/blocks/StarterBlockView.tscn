@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://blbalxw60shxh"]
+[gd_scene load_steps=2 format=3 uid="uid://ne8dbusr8py3"]
 
 [sub_resource type="GDScript" id="GDScript_e0ee3"]
-script/source = "extends Block
-class_name StartBlock
+script/source = "extends BlockView
+class_name StarterBlockView
 
 func _ready():
 	super._ready()

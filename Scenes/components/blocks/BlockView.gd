@@ -5,16 +5,24 @@
 extends ColorRect
 class_name BlockView
 
+
 const ACTUAL_SIZE: float = 64
-@export var grid_cell_size: int = 32
-@export var grid_pos: Vector2i
+var grid_cell_size: int = 32
+var coordinate: Coordinate
+var block: AbstractBlock
+
+func init(_coordinate: Coordinate, _grid_cell_size: int, _block: AbstractBlock):
+	coordinate = _coordinate
+	grid_cell_size = _grid_cell_size
+	block = _block
 
 func _ready():
-	position = Vector2(grid_pos.x, grid_pos.y) * grid_cell_size
+	position = Vector2(coordinate.x, coordinate.y) * grid_cell_size
 	scale = Vector2(grid_cell_size / ACTUAL_SIZE, grid_cell_size / ACTUAL_SIZE)
+	$Sprite2D.texture = BlockTextures.get_texture_for_block(block)
 
-signal drag_start(grid_position: Vector2i)
+signal drag_start(coordinate: Coordinate)
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		drag_start.emit(grid_pos)
+		drag_start.emit(coordinate)
