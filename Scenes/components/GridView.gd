@@ -11,6 +11,8 @@ const CELL_SIZE = 32
 
 var grid = Grid.new(10, 10)
 
+var blocks = {}
+
 func _ready():
 	# Make sure the grid is the size we need for drag and drop stuff.
 	size = Vector2(width_in_pixels, height_in_pixels)
@@ -32,6 +34,7 @@ func place_block(coordinate: Coordinate, block: AbstractBlock):
 	block_scene.init(coordinate, CELL_SIZE, block)
 	grid.setBlock(coordinate, block)
 	add_child(block_scene)
+	blocks[coordinate] = block_scene
 	block_scene.connect("drag_start", on_start_block_drag)
 	block_scene.z_index = 2
 
@@ -49,26 +52,26 @@ var start_drag_coordinate = null
 func on_start_block_drag(coordinate: Coordinate):
 	start_drag_coordinate = coordinate
 
-#func _input(event):
-	## If dragging:
-	#if start_drag_grid_position != null and event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		#var mouse_pos = get_global_mouse_position()
-#
-		## Find block under mouse
-		#for pos in blocks.keys():
-			#var block = blocks[pos]
-			#if block.get_global_rect().has_point(mouse_pos):
-				#add_line(start_drag_grid_position, pos)
-				#break
-		#start_drag_grid_position = null
+func _input(event):
+	# If dragging:
+	if start_drag_coordinate != null and event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var mouse_pos = get_global_mouse_position()
 
-func add_line(from_grid_pos: Vector2i, to_grid_pos: Vector2i):
+		# Find block under mouse
+		for coordinate in blocks.keys():
+			var block = blocks[coordinate]
+			if block.get_global_rect().has_point(mouse_pos):
+				add_line(start_drag_coordinate, coordinate)
+				break
+		start_drag_coordinate = null
+
+func add_line(from: Coordinate, to: Coordinate):
 	var line = Line2D.new()
 	line.z_index = 1
 	line.default_color = Color.RED
 	line.width = 4
-	var from_middle = (Vector2(from_grid_pos.x + 0.5, from_grid_pos.y + 0.5)) * CELL_SIZE
-	var to_middle = (Vector2(to_grid_pos.x + 0.5, to_grid_pos.y + 0.5)) * CELL_SIZE
+	var from_middle = (Vector2(from.x + 0.5, from.y + 0.5)) * CELL_SIZE
+	var to_middle = (Vector2(to.x + 0.5, to.y + 0.5)) * CELL_SIZE
 	line.add_point(from_middle)
 	line.add_point(to_middle)
 	add_child(line)

@@ -5,7 +5,6 @@
 extends ColorRect
 class_name BlockView
 
-
 const ACTUAL_SIZE: float = 64
 var grid_cell_size: int = 32
 var coordinate: Coordinate
