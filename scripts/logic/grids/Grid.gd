@@ -16,22 +16,17 @@ func setExpectedOutput(_expected_output: OrderedOutput):
 
 func setBlock(coordinate: Coordinate, block: AbstractBlock):
 	grid[coordinate] = block
-func clearBlock(coordinate: Coordinate):
+func erase_block(coordinate: Coordinate):
 	grid.erase(coordinate)
 func getBlock(coordinate: Coordinate) -> AbstractBlock:
 	return grid[coordinate]
-func addEdge(from: Coordinate, to: Coordinate):
+func add_edge(from: Coordinate, to: Coordinate):
 	edges.add(Edge.new(from, to))
-func removeEdge(from: Coordinate, to: Coordinate):
-	edges.remove(Edge.new(from, to))
+func erase_edge(edge: Edge):
+	edges.remove(edge)
 
-func getNeighbours(c: Coordinate) -> Array[Edge]:
-	return [
-		Edge.new(c, Coordinate.new(c.x + 1, c.y)),
-		Edge.new(c, Coordinate.new(c.x - 1, c.y)),
-		Edge.new(c, Coordinate.new(c.x, c.y + 1)),
-		Edge.new(c, Coordinate.new(c.x, c.y - 1))
-	].filter(func(e): return edges.contains(e))
+func neighbours(c: Coordinate) -> Array[Edge]:
+	return edges.find_edges_connecting_to(c).filter(func(e): return edges.contains(e)) as Array[Edge]
 
 func getBlocksOfType(block_type) -> Array[Coordinate]:
 	var result: Array[Coordinate] = []

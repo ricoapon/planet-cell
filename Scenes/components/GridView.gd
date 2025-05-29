@@ -9,9 +9,10 @@ var width_in_cells = floor(float(width_in_pixels) / CELL_SIZE)
 var height_in_cells = floor(float(height_in_pixels) / CELL_SIZE)
 const CELL_SIZE = 32
 
-var grid = Grid.new(10, 10)
+var grid: Grid = Grid.new(10, 10)
 
-var blocks = {}
+var blocks: Dictionary[Coordinate, BlockView] = {}
+var lines: LineDictionary = LineDictionary.new()
 
 func _ready():
 	# Make sure the grid is the size we need for drag and drop stuff.
@@ -36,6 +37,7 @@ func place_block(coordinate: Coordinate, block: AbstractBlock):
 	add_child(block_scene)
 	blocks[coordinate] = block_scene
 	block_scene.connect("drag_start", on_start_block_drag)
+	block_scene.connect("erase_me", on_erase_block)
 	block_scene.z_index = 2
 
 func _can_drop_data(_at_position, data):
@@ -46,6 +48,21 @@ func _drop_data(at_position, data):
 	var y = floor(float(at_position.y) / CELL_SIZE)
 	place_block(Coordinate.new(x, y), data)
 
+func on_erase_block(coordinate: Coordinate):
+	var block_scene = blocks[coordinate]
+	block_scene.queue_free()
+	blocks.erase(coordinate)
+	grid.erase_block(coordinate)
+	for edge in grid.neighbours(coordinate):
+		grid.erase_edge(edge)
+		var line = lines.get_line(edge.from, edge.to)
+		if line != null:
+			lines.remove_line(line)
+			line.queue_free()
+
+func on_erase_line(line: Line2D):
+	lines.remove_line(line)
+	line.queue_free()
 
 var start_drag_coordinate = null
 
@@ -66,6 +83,12 @@ func _input(event):
 		start_drag_coordinate = null
 
 func add_line(from: Coordinate, to: Coordinate):
+	# It can happen that the UI wants to draw from a block to itself.
+	# Obviously, we don't want this.
+	if (from.equals(to)):
+		return
+	
+	grid.add_edge(from, to)
 	var line = Line2D.new()
 	line.z_index = 1
 	line.default_color = Color.RED
@@ -75,3 +98,4 @@ func add_line(from: Coordinate, to: Coordinate):
 	line.add_point(from_middle)
 	line.add_point(to_middle)
 	add_child(line)
+	lines.add(line, from, to)

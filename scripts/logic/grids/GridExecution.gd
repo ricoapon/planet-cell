@@ -56,7 +56,7 @@ func _find_first_matching(powered_edges: Array[PoweredEdge], similar_edge: Power
 
 # Locate all other edges from a block that are not the powered edge.
 func _determine_next_edges(poweredEdge: PoweredEdge) -> Array[Edge]:
-	return grid.getNeighbours(poweredEdge.to).filter(
+	return grid.neighbours(poweredEdge.to).filter(
 		func(e): return e.x != poweredEdge.from.x && e.y != poweredEdge.from.y)
 
 func hasNextStep() -> bool:

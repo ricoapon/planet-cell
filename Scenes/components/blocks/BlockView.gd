@@ -21,7 +21,11 @@ func _ready():
 	$Sprite2D.texture = BlockTextures.get_texture_for_block(block)
 
 signal drag_start(coordinate: Coordinate)
+signal erase_me(coordinate: Coordinate)
 
 func _gui_input(event: InputEvent):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		drag_start.emit(coordinate)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.double_click:
+			erase_me.emit(coordinate)
+		elif event.pressed:
+			drag_start.emit(coordinate)
