@@ -3,7 +3,7 @@
 # 2. We can scale the size of the ColorRect and Sprite2D will automatically scale with it.
 # 3. For debugging, we can give it a color (instead of transparent) so we can see what is happening.
 extends ColorRect
-class_name Block
+class_name BlockView
 
 const ACTUAL_SIZE: float = 64
 @export var grid_cell_size: int = 32

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch60wr0xnnchv"]
+
+[ext_resource type="Script" uid="uid://cnn6jbl3n8cdc" path="res://scenes/components/BlockView.gd" id="1_yn5ml"]
+[ext_resource type="Texture2D" uid="uid://dbagaicdpyvet" path="res://assets/blocks/environment_01.png" id="2_q2jkb"]
+
+[node name="BlockView" type="ColorRect"]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0)
+script = ExtResource("1_yn5ml")
+grid_cell_size = 64
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_q2jkb")
