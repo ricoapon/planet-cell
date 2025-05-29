@@ -8,3 +8,6 @@ func activate(poweredEdge: PoweredEdge, out: Array[Edge]) -> Array[PoweredEdge]:
 	if poweredEdge.from != null:
 		return []
 	return out.map(func(e): return e.power(1))
+
+func type() -> Type:
+	return Type.STARTER

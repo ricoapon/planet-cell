@@ -15,3 +15,6 @@ func activate(powered_edge: PoweredEdge, _out: Array[Edge]) -> Array[PoweredEdge
 
 func get_output() -> SingleOutput:
 	return output
+
+func type() -> Type:
+	return Type.OUTPUT

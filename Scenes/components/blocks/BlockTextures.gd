@@ -1,14 +1,17 @@
 class_name BlockTextures
 
-static var BLOCK_TEXTURE: Dictionary = {
-	StarterBlock: preload("res://assets/blocks/environment_04.png"),
-	OutputBlock: preload("res://assets/blocks/environment_01.png"),
-	SplitBlock: preload("res://assets/blocks/environment_07.png")
+static var BLOCK_TEXTURE: Dictionary[AbstractBlock.Type, Texture2D] = {
+	AbstractBlock.Type.STARTER: preload("res://assets/blocks/environment_04.png"),
+	AbstractBlock.Type.OUTPUT: preload("res://assets/blocks/environment_01.png"),
+	AbstractBlock.Type.SPLIT: preload("res://assets/blocks/environment_07.png")
 }
 
 static func get_texture_for_block(block: AbstractBlock) -> Texture2D:
-	for clazz in BLOCK_TEXTURE.keys():
-		if is_instance_of(block, clazz):
-			return BLOCK_TEXTURE[clazz]
-	push_error("Could not find texture for block " + block.get_class())
+	for type in BLOCK_TEXTURE.keys():
+		if block.type() == type:
+			return BLOCK_TEXTURE[type]
+	push_error("Could not find texture for block ", block.type())
 	return null
+
+static func get_texture_for_type(type: AbstractBlock.Type) -> Texture2D:
+	return BLOCK_TEXTURE[type]
