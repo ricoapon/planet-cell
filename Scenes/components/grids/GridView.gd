@@ -1,3 +1,4 @@
+class_name GridView
 extends Control
 
 @onready var BlockScene = preload("res://scenes/components/blocks/BlockView.tscn")

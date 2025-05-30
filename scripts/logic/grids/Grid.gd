@@ -11,7 +11,7 @@ func _init(_width: int, _height: int):
 	width = _width
 	height = _height
 
-func setExpectedOutput(_expected_output: OrderedOutput):
+func set_expected_output(_expected_output: OrderedOutput):
 	expected_output = _expected_output
 
 func setBlock(coordinate: Coordinate, block: AbstractBlock):
@@ -28,7 +28,8 @@ func get_edge(from: Coordinate, to: Coordinate) -> Edge:
 	return edges.find_edge(from, to)
 
 func neighbours(c: Coordinate) -> Array[Edge]:
-	return edges.find_edges_connecting_to(c).filter(func(e): return edges.contains(e)) as Array[Edge]
+	var result = edges.find_edges_connecting_to(c).filter(func(e): return edges.contains(e)) as Array[Edge]
+	return result
 
 func getBlocksOfType(block_type) -> Array[Coordinate]:
 	var result: Array[Coordinate] = []
