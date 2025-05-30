@@ -10,7 +10,7 @@ func activate(powered_edge: PoweredEdge, out: Array[Edge]) -> Array[PoweredEdge]
 		
 	# To work around typing issues with map, we do this.
 	var result: Array[PoweredEdge]
-	result.assign(out.map(func(e): return e.to_powered_edge(1)))
+	result.assign(out.map(func(e): return e.to_powered_edge(1, powered_edge.to)))
 	return result
 
 func type() -> Type:

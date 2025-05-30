@@ -8,8 +8,12 @@ func _init(_from: Coordinate, _to: Coordinate):
 	from = _from
 	to = _to
 
-func to_powered_edge(power: int) -> PoweredEdge:
-	return PoweredEdge.new(from, to, power)
+# A powered edge has a direction, while the edge does not. So we need to take this into account.
+func to_powered_edge(power: int, _from: Coordinate) -> PoweredEdge:
+	if _from.equals(from):
+		return PoweredEdge.new(from, to, power)
+	else:
+		return PoweredEdge.new(to, from, power)
 
 func as_string() -> String:
 	# A line from A to B is also a line from B to A. We sort the coordinates such
