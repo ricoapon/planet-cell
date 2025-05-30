@@ -1,61 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy4dooi088si3"]
+[gd_scene load_steps=5 format=3 uid="uid://dy4dooi088si3"]
 
 [ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="1_11y2r"]
 [ext_resource type="Script" uid="uid://m037x6xw1xv7" path="res://scenes/Menu.gd" id="1_o0tnf"]
 [ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/DraggableBlock.tscn" id="2_upctu"]
+[ext_resource type="PackedScene" uid="uid://b7ack6a2rvejj" path="res://scenes/components/output/OrderedOutputView.tscn" id="4_o0tnf"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_o0tnf")
 
-[node name="BlackGridBackground" type="ColorRect" parent="."]
+[node name="OrderedOutputView" parent="." instance=ExtResource("4_o0tnf")]
+offset_bottom = 50.0
+
+[node name="Middle" type="Node2D" parent="."]
+position = Vector2(100, 0)
+
+[node name="BlackGridBackground" type="ColorRect" parent="Middle"]
 offset_right = 500.0
 offset_bottom = 500.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="GridView" parent="." instance=ExtResource("1_11y2r")]
+[node name="GridView" parent="Middle" instance=ExtResource("1_11y2r")]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 10.0
 offset_bottom = 10.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Bottom" type="ColorRect" parent="."]
+[node name="Bottom" type="ColorRect" parent="Middle"]
 offset_top = 500.0
 offset_right = 500.0
 offset_bottom = 600.0
+metadata/_edit_use_anchors_ = true
 
-[node name="DraggableBlockStarter" parent="." instance=ExtResource("2_upctu")]
+[node name="DraggableBlockStarter" parent="Middle" instance=ExtResource("2_upctu")]
 offset_left = 14.0
 offset_top = 514.0
 offset_right = 78.0
 offset_bottom = 578.0
 block_type = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="DraggableBlockSplit" parent="." instance=ExtResource("2_upctu")]
+[node name="DraggableBlockSplit" parent="Middle" instance=ExtResource("2_upctu")]
 offset_left = 100.0
 offset_top = 514.0
 offset_right = 164.0
 offset_bottom = 578.0
 block_type = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="DraggableBlockOutput" parent="." instance=ExtResource("2_upctu")]
+[node name="DraggableBlockOutput" parent="Middle" instance=ExtResource("2_upctu")]
 offset_left = 188.0
 offset_top = 514.0
 offset_right = 252.0
 offset_bottom = 578.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="Middle"]
 offset_left = 360.0
 offset_top = 517.0
 offset_right = 458.0
 offset_bottom = 548.0
 text = "PLAY"
+metadata/_edit_use_anchors_ = true
 
-[node name="Button2" type="Button" parent="."]
+[node name="Button2" type="Button" parent="Middle"]
 offset_left = 359.0
 offset_top = 554.0
 offset_right = 457.0
 offset_bottom = 585.0
 text = "STEP"
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Middle/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Middle/Button2" to="." method="_on_button_2_pressed"]
