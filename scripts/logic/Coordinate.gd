@@ -10,3 +10,6 @@ func _init(_x: int, _y: int):
 
 func equals(other: Coordinate):
 	return x == other.x and y == other.y
+
+func as_string() -> String:
+	return "%s,%s" % [x, y]

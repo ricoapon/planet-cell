@@ -19,6 +19,6 @@ func _edge_to_string(edge: Edge) -> String:
 func find_edges_connecting_to(coordinate: Coordinate) -> Array[Edge]:
 	var result: Array[Edge] = []
 	for key in edges.keys():
-		if key.begins_with(coordinate.to_string() + ":") or key.ends_with(":" + coordinate.to_string()):
+		if key.begins_with(coordinate.as_string() + ":") or key.ends_with(":" + coordinate.as_string()):
 			result.append(edges[key])
 	return result

@@ -31,4 +31,4 @@ func as_string() -> String:
 			# If the Y value is the same, the coordinates are the same.
 			c1 = to
 			c2 = from
-	return c1.to_string() + ":" + c2.to_string()
+	return c1.as_string() + ":" + c2.as_string()
