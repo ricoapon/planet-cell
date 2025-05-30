@@ -34,7 +34,7 @@ func place_block(coordinate: Coordinate, block: AbstractBlock):
 	var block_scene = BlockScene.instantiate()
 	block_scene.init(coordinate, CELL_SIZE, block)
 	grid.setBlock(coordinate, block)
-	add_child(block_scene)
+	$BlockContainer.add_child(block_scene)
 	blocks[coordinate] = block_scene
 	block_scene.connect("drag_start", on_start_block_drag)
 	block_scene.connect("erase_me", on_erase_block)
@@ -93,6 +93,6 @@ func add_edge(from: Coordinate, to: Coordinate):
 	grid.add_edge(from, to)
 	var edge = EdgeView.new(from, to, CELL_SIZE)
 	edge.z_index = 1
-	add_child(edge)
+	$EdgeContainer.add_child(edge)
 	edge_views.add(edge)
 	edge.connect("erase_me", on_erase_edge)
