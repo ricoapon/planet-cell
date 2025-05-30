@@ -36,7 +36,12 @@ func _draw():
 				x += powered_edge.step
 			else:
 				x -= powered_edge.step
-		draw_circle(to_vector(x, y), 10, Color.RED)
+		
+		var middle = to_vector(x, y)
+		draw_circle(middle, 10, Color.RED)
+		
+		# TODO: Find a better way to display power.
+		draw_string(get_theme_default_font(), middle, str(powered_edge.power))
 
 func to_vector(x: int, y: int) -> Vector2:
 	return Vector2(grid_view.CELL_SIZE * (x + 0.5), grid_view.CELL_SIZE * (y + 0.5))
