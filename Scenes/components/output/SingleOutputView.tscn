@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://41d2aev172hl"]
+
+[ext_resource type="Script" uid="uid://cjwcr58c6wivc" path="res://scenes/components/output/SingleOutputView.gd" id="1_dmjau"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmjau"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="SingleOutputView" type="Panel"]
+offset_right = 100.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmjau")
+script = ExtResource("1_dmjau")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 98.0
+offset_bottom = 38.0
+theme_override_constants/separation = 0
+alignment = 1

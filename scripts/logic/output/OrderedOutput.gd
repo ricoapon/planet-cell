@@ -3,6 +3,9 @@ extends RefCounted
 
 var _rows: Array[SingleOutput] = []
 
+func outputs() -> Array[SingleOutput]:
+	return _rows
+
 # The caller needs to make sure to first call next_row() before using this method.
 func add_output_to_current_row(output: SingleOutput):
 	var current_row_output = _rows[-1]
