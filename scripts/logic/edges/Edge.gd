@@ -32,3 +32,6 @@ func as_string() -> String:
 			c1 = to
 			c2 = from
 	return c1.as_string() + ":" + c2.as_string()
+
+func _to_string() -> String:
+	return "Edge[%s]" % [as_string()]

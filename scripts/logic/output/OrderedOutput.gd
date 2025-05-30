@@ -26,3 +26,9 @@ func fully_contains(other: OrderedOutput) -> bool:
 
 func equals(other: OrderedOutput) -> bool:
 	return fully_contains(other) and other.fully_contains(self)
+
+func _to_string() -> String:
+	var result = "OrderedOutput["
+	for output in _rows:
+		result += output._to_string() + ","
+	return result + "]"

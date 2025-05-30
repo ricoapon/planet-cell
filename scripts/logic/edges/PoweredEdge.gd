@@ -24,3 +24,6 @@ func _init(_from: Coordinate, _to: Coordinate, _power: int):
 
 func to_edge() -> Edge:
 	return Edge.new(from, to)
+
+func _to_string() -> String:
+	return "PoweredEdge[%s,%s,%s,%s,%s]" % [from, to, power, length, step]

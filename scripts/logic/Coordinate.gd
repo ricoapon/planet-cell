@@ -13,3 +13,6 @@ func equals(other: Coordinate):
 
 func as_string() -> String:
 	return "%s,%s" % [x, y]
+
+func _to_string() -> String:
+	return "Coordinate[%s,%s]" % [x, y]

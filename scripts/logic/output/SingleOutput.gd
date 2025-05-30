@@ -28,3 +28,11 @@ func times_color_is_present(color: OutputColor) -> int:
 
 func equals(other: SingleOutput):
 	return _colors == other._colors
+
+func _to_string() -> String:
+	var result = "SingleOutput["
+	for color in SingleOutput.OutputColor.values():
+		if _colors[color] == 0:
+			continue
+		result += SingleOutput.OutputColor.keys()[color] + ":" + str(_colors[color]) + ","
+	return result + "]"
