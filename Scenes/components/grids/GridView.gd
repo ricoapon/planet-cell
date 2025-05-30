@@ -3,37 +3,42 @@ extends Control
 
 @onready var BlockScene = preload("res://scenes/components/blocks/BlockView.tscn")
 
-@export var width_in_pixels: int = 480
-@export var height_in_pixels: int = 480
-
-var width_in_cells = floor(float(width_in_pixels) / CELL_SIZE)
-var height_in_cells = floor(float(height_in_pixels) / CELL_SIZE)
-const CELL_SIZE = 32
-
 var grid: Grid = Grid.new(10, 10)
+const CELL_SIZE = 64
 
 var blocks: Dictionary[Coordinate, BlockView] = {}
 var edge_views: EdgeViewDictionary = EdgeViewDictionary.new()
 
+# Variables for the boxes.
+var spacing = 6
+var corner_radius = 6
+
+func create_style_box_flat() -> StyleBoxFlat:
+	var style_box_flat: StyleBoxFlat = StyleBoxFlat.new()
+	style_box_flat.bg_color = Color.html("#D3D3D3")
+	style_box_flat.corner_radius_top_left = corner_radius
+	style_box_flat.corner_radius_top_right = corner_radius
+	style_box_flat.corner_radius_bottom_left = corner_radius
+	style_box_flat.corner_radius_bottom_right = corner_radius
+	style_box_flat.set_corner_detail(10)
+	return style_box_flat
+
 func _ready():
 	# Make sure the grid is the size we need for drag and drop stuff.
-	size = Vector2(width_in_pixels, height_in_pixels)
+	size = Vector2(grid.width * (CELL_SIZE + spacing), grid.height * (CELL_SIZE + spacing))
 
 func _draw():
-	draw_rect(Rect2i(0, 0, width_in_pixels, height_in_pixels), Color.html("#C5C9CC"))
-	
-	for x in (width_in_cells + 1):
-		var from = Vector2i(x * CELL_SIZE, 0)
-		var to = Vector2i(from.x, height_in_pixels)
-		draw_line(from, to, Color.html("#AEB2B5"))
-	for y in (height_in_cells + 1):
-		var from = Vector2i(0, y * CELL_SIZE)
-		var to = Vector2i(width_in_pixels, from.y)
-		draw_line(from, to, Color.html("#AEB2B5"))
+	var style_box_flat = create_style_box_flat()
+	for x in range(grid.width):
+		for y in range(grid.height):
+			var pos = Vector2(x * (CELL_SIZE + spacing), y * (CELL_SIZE + spacing))
+			var rect = Rect2(pos, Vector2(CELL_SIZE, CELL_SIZE))
+			draw_style_box(style_box_flat, rect)
 
 func place_block(coordinate: Coordinate, block: AbstractBlock):
-	var block_scene = BlockScene.instantiate()
+	var block_scene: BlockView = BlockScene.instantiate()
 	block_scene.init(coordinate, CELL_SIZE, block)
+	block_scene.position = Vector2(coordinate.x, coordinate.y) * (CELL_SIZE + spacing)
 	grid.add_block(coordinate, block)
 	$BlockContainer.add_child(block_scene)
 	blocks[coordinate] = block_scene
@@ -45,8 +50,8 @@ func _can_drop_data(_at_position, data):
 	return data is AbstractBlock
 
 func _drop_data(at_position, data):
-	var x = floor(float(at_position.x) / CELL_SIZE)
-	var y = floor(float(at_position.y) / CELL_SIZE)
+	var x = floor(float(at_position.x) / (CELL_SIZE + spacing))
+	var y = floor(float(at_position.y) / (CELL_SIZE + spacing))
 	place_block(Coordinate.new(x, y), data)
 
 func on_erase_block(coordinate: Coordinate):
@@ -92,7 +97,7 @@ func add_edge(from: Coordinate, to: Coordinate):
 		return
 	
 	grid.add_edge(from, to)
-	var edge = EdgeView.new(from, to, CELL_SIZE)
+	var edge = EdgeView.new(from, to, CELL_SIZE, spacing)
 	edge.z_index = 1
 	$EdgeContainer.add_child(edge)
 	edge_views.add(edge)

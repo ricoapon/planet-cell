@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qppng80r2fw1"]
 
-[ext_resource type="Script" uid="uid://wyf1ogytonle" path="res://scenes/DraggableBlock.gd" id="1_8q1k4"]
+[ext_resource type="Script" uid="uid://wyf1ogytonle" path="res://scenes/components/blocks/DraggableBlock.gd" id="1_8q1k4"]
 [ext_resource type="Texture2D" uid="uid://dbagaicdpyvet" path="res://assets/blocks/environment_01.png" id="1_k2wk6"]
 
 [node name="DraggableBlock" type="TextureRect"]

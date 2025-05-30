@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dy4dooi088si3"]
+[gd_scene load_steps=6 format=3 uid="uid://dy4dooi088si3"]
 
 [ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="1_11y2r"]
 [ext_resource type="Script" uid="uid://m037x6xw1xv7" path="res://scenes/Menu.gd" id="1_o0tnf"]
-[ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/DraggableBlock.tscn" id="2_upctu"]
+[ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/components/blocks/DraggableBlock.tscn" id="2_upctu"]
+[ext_resource type="PackedScene" uid="uid://dc4mry44mnibi" path="res://scenes/components/menu/SidePanel.tscn" id="4_jmdev"]
 [ext_resource type="PackedScene" uid="uid://b7ack6a2rvejj" path="res://scenes/components/output/OrderedOutputView.tscn" id="4_o0tnf"]
 
 [node name="Menu" type="Node2D"]
@@ -33,29 +34,6 @@ offset_right = 500.0
 offset_bottom = 600.0
 metadata/_edit_use_anchors_ = true
 
-[node name="DraggableBlockStarter" parent="Middle" instance=ExtResource("2_upctu")]
-offset_left = 14.0
-offset_top = 514.0
-offset_right = 78.0
-offset_bottom = 578.0
-block_type = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="DraggableBlockSplit" parent="Middle" instance=ExtResource("2_upctu")]
-offset_left = 100.0
-offset_top = 514.0
-offset_right = 164.0
-offset_bottom = 578.0
-block_type = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="DraggableBlockOutput" parent="Middle" instance=ExtResource("2_upctu")]
-offset_left = 188.0
-offset_top = 514.0
-offset_right = 252.0
-offset_bottom = 578.0
-metadata/_edit_use_anchors_ = true
-
 [node name="Button" type="Button" parent="Middle"]
 offset_left = 360.0
 offset_top = 517.0
@@ -72,5 +50,31 @@ offset_bottom = 585.0
 text = "STEP"
 metadata/_edit_use_anchors_ = true
 
+[node name="SidePanel" parent="." instance=ExtResource("4_jmdev")]
+offset_top = 72.0
+offset_bottom = 314.0
+
+[node name="DraggableBlockStarter" parent="SidePanel/VBoxContainer" index="0" instance=ExtResource("2_upctu")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+block_type = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DraggableBlockSplit" parent="SidePanel/VBoxContainer" index="1" instance=ExtResource("2_upctu")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+block_type = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DraggableBlockOutput" parent="SidePanel/VBoxContainer" index="2" instance=ExtResource("2_upctu")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="Middle/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Middle/Button2" to="." method="_on_button_2_pressed"]
+
+[editable path="SidePanel"]

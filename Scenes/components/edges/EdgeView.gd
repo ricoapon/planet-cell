@@ -5,15 +5,15 @@ extends ColorRect
 var from: Coordinate
 var to: Coordinate
 
-func _init(_from: Coordinate, _to: Coordinate, cell_size: int):
+func _init(_from: Coordinate, _to: Coordinate, cell_size: int, spacing: int):
 	from = _from
 	to = _to
 	
 	color = Color.RED
 	var width = 4
 	
-	var from_middle = (Vector2(from.x + 0.5, from.y + 0.5)) * cell_size
-	var to_middle = (Vector2(to.x + 0.5, to.y + 0.5)) * cell_size
+	var from_middle = GridCalculations.determine_middle(from, cell_size, spacing)
+	var to_middle = GridCalculations.determine_middle(to, cell_size, spacing)
 	var min_x = min(from_middle.x, to_middle.x)
 	var min_y = min(from_middle.y, to_middle.y)
 	var max_x = max(from_middle.x, to_middle.x)

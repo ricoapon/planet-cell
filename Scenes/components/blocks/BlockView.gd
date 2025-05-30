@@ -6,7 +6,7 @@ extends ColorRect
 class_name BlockView
 
 const ACTUAL_SIZE: float = 64
-var grid_cell_size: int = 32
+var grid_cell_size: int
 var coordinate: Coordinate
 var block: AbstractBlock
 
@@ -16,7 +16,6 @@ func init(_coordinate: Coordinate, _grid_cell_size: int, _block: AbstractBlock):
 	block = _block
 
 func _ready():
-	position = Vector2(coordinate.x, coordinate.y) * grid_cell_size
 	scale = Vector2(grid_cell_size / ACTUAL_SIZE, grid_cell_size / ACTUAL_SIZE)
 	$Sprite2D.texture = BlockTextures.get_texture_for_block(block)
 

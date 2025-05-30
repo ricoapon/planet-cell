@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://8nqls1sw4xn"]
+
+[node name="ButtonWithIcon" type="Button"]
+offset_right = 140.0
+offset_bottom = 40.0
+text = "PLAY"

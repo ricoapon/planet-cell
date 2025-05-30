@@ -21,7 +21,7 @@ func _draw():
 	for powered_edge in grid_execution.next_powered_edges:
 		# Starting point is with edge null.
 		if powered_edge.from == null:
-			draw_circle(to_vector(powered_edge.to.x, powered_edge.to.y), 10, Color.RED)
+			draw_circle(to_middle_vector(powered_edge.to.x, powered_edge.to.y), 10, Color.RED)
 			continue
 		
 		var x = powered_edge.from.x
@@ -37,11 +37,11 @@ func _draw():
 			else:
 				x -= powered_edge.step
 		
-		var middle = to_vector(x, y)
+		var middle = to_middle_vector(x, y)
 		draw_circle(middle, 10, Color.RED)
 		
 		# TODO: Find a better way to display power.
 		draw_string(get_theme_default_font(), middle, str(powered_edge.power))
 
-func to_vector(x: int, y: int) -> Vector2:
-	return Vector2(grid_view.CELL_SIZE * (x + 0.5), grid_view.CELL_SIZE * (y + 0.5))
+func to_middle_vector(x: int, y: int) -> Vector2:
+	return GridCalculations.determine_middle(Coordinate.new(x, y), grid_view.CELL_SIZE, grid_view.spacing)

@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc4mry44mnibi"]
+
+[ext_resource type="Script" uid="uid://djqte4131b6mr" path="res://scenes/components/menu/SidePanel.gd" id="1_nrlv3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eic27"]
+bg_color = Color(0.827451, 0.827451, 0.827451, 1)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nrlv3"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_right = 10
+corner_detail = 10
+
+[node name="SidePanel" type="Panel"]
+offset_top = 1.0
+offset_right = 150.0
+offset_bottom = 71.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eic27")
+script = ExtResource("1_nrlv3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nrlv3")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 30.0
+text = "ACTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 35.0
+offset_right = 145.0
+offset_bottom = 75.0
+theme_override_constants/separation = 10
