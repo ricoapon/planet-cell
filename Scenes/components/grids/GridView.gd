@@ -34,7 +34,7 @@ func _draw():
 func place_block(coordinate: Coordinate, block: AbstractBlock):
 	var block_scene = BlockScene.instantiate()
 	block_scene.init(coordinate, CELL_SIZE, block)
-	grid.setBlock(coordinate, block)
+	grid.add_block(coordinate, block)
 	$BlockContainer.add_child(block_scene)
 	blocks[coordinate] = block_scene
 	block_scene.connect("drag_start", on_start_block_drag)
