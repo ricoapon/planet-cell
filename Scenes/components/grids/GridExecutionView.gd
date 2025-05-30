@@ -27,9 +27,15 @@ func _draw():
 		var x = powered_edge.from.x
 		var y = powered_edge.from.y
 		if powered_edge.from.x == powered_edge.to.x:
-			y += powered_edge.step
+			if powered_edge.from.y < powered_edge.to.y:
+				y += powered_edge.step
+			else:
+				y -= powered_edge.step
 		else:
-			x += powered_edge.step
+			if powered_edge.from.x < powered_edge.to.x:
+				x += powered_edge.step
+			else:
+				x -= powered_edge.step
 		draw_circle(to_vector(x, y), 10, Color.RED)
 
 func to_vector(x: int, y: int) -> Vector2:
