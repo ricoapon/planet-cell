@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Planet Cell"
-run/main_scene="uid://dy4dooi088si3"
+run/main_scene="uid://cky1vttdixbsd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
