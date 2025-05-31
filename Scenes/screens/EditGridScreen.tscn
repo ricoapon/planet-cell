@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cky1vttdixbsd"]
+[gd_scene load_steps=8 format=3 uid="uid://cky1vttdixbsd"]
 
 [ext_resource type="Texture2D" uid="uid://bjwctq5vw5sjq" path="res://assets/Background.jpg" id="1_r23i0"]
+[ext_resource type="Script" uid="uid://b66xlanl20bu2" path="res://scenes/screens/EditGridScreen.gd" id="1_s8851"]
 [ext_resource type="PackedScene" uid="uid://dc4mry44mnibi" path="res://scenes/components/menu/SidePanel.tscn" id="2_4v46g"]
 [ext_resource type="PackedScene" uid="uid://8nqls1sw4xn" path="res://scenes/components/menu/ButtonWithIcon.tscn" id="3_7god6"]
 [ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/components/blocks/DraggableBlock.tscn" id="4_gaef8"]
 [ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="5_npwm7"]
+[ext_resource type="PackedScene" uid="uid://b7ack6a2rvejj" path="res://scenes/components/output/OrderedOutputView.tscn" id="6_jvhwy"]
 
 [node name="EditGridScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1024.0
 offset_bottom = 768.0
+script = ExtResource("1_s8851")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -19,76 +22,69 @@ offset_bottom = 768.0
 texture = ExtResource("1_r23i0")
 expand_mode = 1
 
-[node name="ActionsSidePanel" parent="." instance=ExtResource("2_4v46g")]
-layout_mode = 0
-offset_top = 50.0
-offset_bottom = 247.0
-
-[node name="PlayButton" parent="ActionsSidePanel/VBoxContainer" index="0" instance=ExtResource("3_7god6")]
-layout_mode = 2
-
-[node name="StepButton" parent="ActionsSidePanel/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
-layout_mode = 2
-text = "STEP"
-
-[node name="StopButton" parent="ActionsSidePanel/VBoxContainer" index="2" instance=ExtResource("3_7god6")]
-layout_mode = 2
-text = "STOP"
-
-[node name="SpeedButton" parent="ActionsSidePanel/VBoxContainer" index="3" instance=ExtResource("3_7god6")]
-layout_mode = 2
-text = "SPEED x1"
-
-[node name="ButtonsSidePanel" parent="." instance=ExtResource("2_4v46g")]
-layout_mode = 0
-offset_top = 274.0
-offset_bottom = 453.0
-
-[node name="Label" parent="ButtonsSidePanel/Panel" index="0"]
-text = "BUTTONS"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ButtonsSidePanel/VBoxContainer" index="0"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="StarterBlock" parent="ButtonsSidePanel/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-block_type = 2
-
-[node name="OutputBlock" parent="ButtonsSidePanel/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ButtonsSidePanel/VBoxContainer" index="1"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="SplitBlock" parent="ButtonsSidePanel/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-block_type = 1
-
-[node name="ExpectedSidePanel" parent="." instance=ExtResource("2_4v46g")]
-layout_mode = 0
-offset_top = 487.0
-offset_bottom = 712.0
-
-[node name="Label" parent="ExpectedSidePanel/Panel" index="0"]
-text = "EXPECTED"
-
-[node name="VBoxContainer" parent="ExpectedSidePanel" index="1"]
-offset_bottom = 218.0
-
 [node name="GridView" parent="." instance=ExtResource("5_npwm7")]
 offset_left = 265.0
 offset_top = 37.0
 offset_right = 983.0
 offset_bottom = 737.0
+script = null
 
-[editable path="ActionsSidePanel"]
-[editable path="ButtonsSidePanel"]
-[editable path="ExpectedSidePanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 52.0
+offset_right = 140.0
+offset_bottom = 352.0
+theme_override_constants/separation = 20
+
+[node name="ActionsSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+
+[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_7god6")]
+layout_mode = 2
+text = "SPEED x1"
+
+[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
+layout_mode = 2
+text = "STOP"
+
+[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_7god6")]
+layout_mode = 2
+text = "STEP"
+
+[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("3_7god6")]
+layout_mode = 2
+
+[node name="BlocksSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/Panel" index="0"]
+text = "BLOCKS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="DraggableBlock" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+
+[node name="DraggableBlock2" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="DraggableBlock" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+
+[node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/Panel" index="0"]
+text = "EXPECTED"
+
+[node name="OrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_jvhwy")]
+layout_mode = 2
+
+[editable path="VBoxContainer/ActionsSidePanel"]
+[editable path="VBoxContainer/BlocksSidePanel"]
+[editable path="VBoxContainer/ExpectedSidePanel"]

@@ -4,6 +4,7 @@
 
 [node name="OrderedOutputView" type="VBoxContainer"]
 offset_right = 100.0
-offset_bottom = 500.0
-theme_override_constants/separation = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
 script = ExtResource("1_7fhat")

@@ -23,7 +23,7 @@ func _ready():
 	ordered_output.add_output_to_current_row(row1)
 	ordered_output.next_row()
 	ordered_output.add_output_to_current_row(row2)
-	$OrderedOutputView.init(ordered_output)
+	$OrderedOutputView.init(ordered_output, ordered_output)
 	
 	# Just a test case for easy setup.
 	$Middle/GridView.place_block(Coordinate.new(5, 5), StarterBlock.new())
