@@ -1,11 +1,10 @@
 class_name SingleColorView
 extends Panel
 
-const OUTPUT_TO_COLOR: Dictionary[SingleOutput.OutputColor, Color] = {
-	SingleOutput.OutputColor.YELLOW: Color.YELLOW,
-	SingleOutput.OutputColor.RED: Color.RED,
-	SingleOutput.OutputColor.BLUE: Color.BLUE,
-	SingleOutput.OutputColor.GREEN: Color.GREEN
+var OUTPUT_TO_COLOR: Dictionary[SingleOutput.OutputColor, Color] = {
+	SingleOutput.OutputColor.RED: Color.html("#dc3545"),
+	SingleOutput.OutputColor.BLUE: Color.html("#0d6efd"),
+	SingleOutput.OutputColor.GREEN: Color.html("#20c997")
 }
 
 const CORNER_RADIUS = 5

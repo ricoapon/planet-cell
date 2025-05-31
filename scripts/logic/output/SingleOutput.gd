@@ -2,7 +2,6 @@ class_name SingleOutput
 extends RefCounted
 
 enum OutputColor {
-	YELLOW,
 	RED,
 	BLUE,
 	GREEN,

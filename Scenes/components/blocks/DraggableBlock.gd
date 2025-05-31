@@ -23,7 +23,7 @@ func _create_block_instance() -> AbstractBlock:
 		AbstractBlock.Type.SPLIT:
 			return SplitBlock.new()
 		AbstractBlock.Type.OUTPUT:
-			return OutputBlock.new(SingleOutput.OutputColor.YELLOW)
+			return OutputBlock.new(SingleOutput.OutputColor.RED)
 		_:
 			push_error("Found block type that is not updated in enum", block_type)
 			return null
