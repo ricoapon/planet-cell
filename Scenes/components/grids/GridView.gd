@@ -29,8 +29,8 @@ func _ready():
 
 func _draw():
 	var style_box_flat = create_style_box_flat()
-	for x in range(grid.width):
-		for y in range(grid.height):
+	for x in grid.width:
+		for y in grid.height:
 			var pos = Vector2(x * (CELL_SIZE + spacing), y * (CELL_SIZE + spacing))
 			var rect = Rect2(pos, Vector2(CELL_SIZE, CELL_SIZE))
 			draw_style_box(style_box_flat, rect)
