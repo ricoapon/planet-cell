@@ -17,6 +17,9 @@ func next_step():
 	grid_execution.next_step()
 	queue_redraw()
 
+func has_next_step() -> bool:
+	return grid_execution.has_next_step()
+
 func _draw():
 	for powered_edge in grid_execution.next_powered_edges:
 		# Starting point is with edge null.

@@ -37,18 +37,16 @@ size_flags_vertical = 0
 layout_mode = 2
 text = "GO TO EDITOR"
 
-[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_mgtm6")]
-layout_mode = 2
-
-[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("4_mgtm6")]
+[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
 text = "STEP"
 
-[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("4_mgtm6")]
+[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
+disabled = true
 text = "STOP"
 
-[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="4" instance=ExtResource("4_mgtm6")]
+[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
 text = "SPEED x1"
 
@@ -76,13 +74,19 @@ text = "EXPECTED"
 [node name="OrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_uhxw8")]
 layout_mode = 2
 
-[node name="GridView" parent="." instance=ExtResource("7_iw852")]
+[node name="Grids" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridView" parent="Grids" instance=ExtResource("7_iw852")]
 offset_left = 265.0
 offset_top = 37.0
 offset_right = 983.0
 offset_bottom = 737.0
 
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StepButton" to="." method="_on_step_button_pressed"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]
 [editable path="VBoxContainer/BlocksSidePanel"]
