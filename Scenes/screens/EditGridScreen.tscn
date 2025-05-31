@@ -86,6 +86,8 @@ offset_top = 37.0
 offset_right = 983.0
 offset_bottom = 737.0
 
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]

@@ -12,4 +12,9 @@ func init(_grid: Grid):
 signal go_to_play_screen(grid: Grid)
 
 func _on_play_button_pressed() -> void:
+	if grid.expected_output._rows.size() == 0 || grid.expected_output._rows[0].equals(SingleOutput.new()):
+		var popup: AcceptDialog = $AcceptDialog
+		popup.dialog_text = "You need to add expected output!"
+		popup.popup_centered()
+		return
 	go_to_play_screen.emit(grid)
