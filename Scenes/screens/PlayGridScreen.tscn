@@ -33,18 +33,22 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("4_mgtm6")]
+[node name="EditorButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("4_mgtm6")]
+layout_mode = 2
+text = "GO TO EDITOR"
+
+[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
 
-[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_mgtm6")]
+[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
-text = "EXPORT"
+text = "STEP"
 
-[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("4_mgtm6")]
+[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
-text = "IMPORT"
+text = "STOP"
 
-[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("4_mgtm6")]
+[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="4" instance=ExtResource("4_mgtm6")]
 layout_mode = 2
 text = "SPEED x1"
 
@@ -77,6 +81,8 @@ offset_left = 265.0
 offset_top = 37.0
 offset_right = 983.0
 offset_bottom = 737.0
+
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]
 [editable path="VBoxContainer/BlocksSidePanel"]

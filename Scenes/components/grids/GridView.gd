@@ -24,10 +24,21 @@ func create_style_box_flat() -> StyleBoxFlat:
 	return style_box_flat
 
 func init(_grid: Grid):
-	grid = _grid
+	_init_grid(_grid)
 	# Make sure the grid is the size we need for drag and drop stuff.
 	size = Vector2(grid.width * (CELL_SIZE + spacing), grid.height * (CELL_SIZE + spacing))
 	queue_redraw()
+
+# The methods in this class assume we start with an empty grid. So we have to "rebuild"
+# the grids using the methods.
+func _init_grid(old_grid: Grid):
+	grid = Grid.new(old_grid.width, old_grid.height)
+	for coordinate in old_grid.coordinates.values():
+		place_block(coordinate, old_grid.getBlock(coordinate))
+	for edge in old_grid.edges.edges.values():
+		add_edge(edge.from, edge.to)
+	# We want to keep the same reference, so we use the old grid.
+	grid = old_grid
 
 func _draw():
 	if grid == null:

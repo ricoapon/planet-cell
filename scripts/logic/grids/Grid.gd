@@ -21,6 +21,7 @@ func add_block(coordinate: Coordinate, block: AbstractBlock):
 	coordinates[coordinate.as_string()] = coordinate
 func erase_block(coordinate: Coordinate):
 	grid.erase(coordinate.as_string())
+	coordinates.erase(coordinate.as_string())
 func getBlock(coordinate: Coordinate) -> AbstractBlock:
 	return grid[coordinate.as_string()]
 func add_edge(from: Coordinate, to: Coordinate):
