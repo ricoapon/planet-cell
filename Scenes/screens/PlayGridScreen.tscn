@@ -87,6 +87,7 @@ offset_bottom = 737.0
 
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StepButton" to="." method="_on_step_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StopButton" to="." method="_on_stop_button_pressed"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]
 [editable path="VBoxContainer/BlocksSidePanel"]

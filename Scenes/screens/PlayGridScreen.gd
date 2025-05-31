@@ -27,5 +27,10 @@ func _on_step_button_pressed() -> void:
 	
 	grid_execution_view.next_step()
 	if not grid_execution_view.has_next_step():
-		grid_execution_view = null
-		StopButton.disabled = true
+		_on_stop_button_pressed()
+
+
+func _on_stop_button_pressed() -> void:
+	grid_execution_view.queue_free()
+	grid_execution_view = null
+	StopButton.disabled = true
