@@ -1,7 +1,11 @@
 class_name EditGridScreen
 extends Control
 
-func _ready():
-	var ordered_output = OrderedOutput.new()
+func init(grid: Grid):
 	var edit_ordered_output_view = $VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditOrderedOutputView
-	edit_ordered_output_view.init(null, ordered_output)
+	edit_ordered_output_view.init(null, grid.expected_output)
+	$GridView.init(grid)
+
+# TODO: remove after testing
+func _ready():
+	init(Grid.new(5, 5))

@@ -3,7 +3,7 @@ extends Control
 
 @onready var BlockScene = preload("res://scenes/components/blocks/BlockView.tscn")
 
-var grid: Grid = Grid.new(10, 10)
+var grid: Grid
 const CELL_SIZE = 64
 
 var blocks: Dictionary[Coordinate, BlockView] = {}
@@ -23,11 +23,16 @@ func create_style_box_flat() -> StyleBoxFlat:
 	style_box_flat.set_corner_detail(10)
 	return style_box_flat
 
-func _ready():
+func init(_grid: Grid):
+	grid = _grid
 	# Make sure the grid is the size we need for drag and drop stuff.
 	size = Vector2(grid.width * (CELL_SIZE + spacing), grid.height * (CELL_SIZE + spacing))
+	queue_redraw()
 
 func _draw():
+	if grid == null:
+		return
+
 	var style_box_flat = create_style_box_flat()
 	for x in grid.width:
 		for y in grid.height:

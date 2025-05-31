@@ -24,31 +24,29 @@ expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 52.0
+offset_top = 40.0
 offset_right = 160.0
-offset_bottom = 522.0
+offset_bottom = 768.0
 theme_override_constants/separation = 20
 
 [node name="ActionsSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_7god6")]
+[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_7god6")]
 layout_mode = 2
-text = "SPEED x1"
 
-[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
+[node name="ExportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
 layout_mode = 2
-text = "STOP"
+text = "EXPORT"
 
-[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_7god6")]
+[node name="ImportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_7god6")]
 layout_mode = 2
-text = "STEP"
-
-[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("3_7god6")]
-layout_mode = 2
+text = "IMPORT"
 
 [node name="BlocksSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="Label" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/Panel" index="0"]
 text = "BLOCKS"
@@ -73,6 +71,7 @@ block_type = 1
 
 [node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2
+size_flags_vertical = 2
 
 [node name="Label" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/Panel" index="0"]
 text = "EXPECTED"
