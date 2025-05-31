@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cav74k6x5v65b"]
+
+[ext_resource type="Script" uid="uid://nnbuue3un25m" path="res://scenes/components/output/EditSingleColorView.gd" id="1_fyygl"]
+
+[node name="EditSingleColorView" type="Panel"]
+offset_right = 41.0
+offset_bottom = 40.0
+script = ExtResource("1_fyygl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Minus" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+text = "-"
+
+[node name="Expected" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "2"
+
+[node name="Plus" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+text = "+"
+
+[connection signal="pressed" from="HBoxContainer/Minus" to="." method="_on_minus_pressed"]
+[connection signal="pressed" from="HBoxContainer/Plus" to="." method="_on_plus_pressed"]

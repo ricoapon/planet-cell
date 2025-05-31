@@ -16,6 +16,11 @@ func init(output_color: SingleOutput.OutputColor, times_actual: int, times_expec
 	add_theme_stylebox_override("panel", style)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_FILL
+	if times_actual == null:
+		times_actual = 0
+	_set_text(times_actual, times_expected)
+
+func _set_text(times_actual: int, times_expected: int):
 	$Label.text = str(times_actual) + "/" + str(times_expected)
 
 func use_rounded_corners_left():

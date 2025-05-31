@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://8nqls1sw4xn" path="res://scenes/components/menu/ButtonWithIcon.tscn" id="3_7god6"]
 [ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/components/blocks/DraggableBlock.tscn" id="4_gaef8"]
 [ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="5_npwm7"]
-[ext_resource type="PackedScene" uid="uid://b7ack6a2rvejj" path="res://scenes/components/output/OrderedOutputView.tscn" id="6_jvhwy"]
+[ext_resource type="PackedScene" uid="uid://cwen6m7xxikxj" path="res://scenes/components/output/EditOrderedOutputView.tscn" id="6_s8851"]
 
 [node name="EditGridScreen" type="Control"]
 layout_mode = 3
@@ -77,7 +77,7 @@ layout_mode = 2
 [node name="Label" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/Panel" index="0"]
 text = "EXPECTED"
 
-[node name="OrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_jvhwy")]
+[node name="EditOrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_s8851")]
 layout_mode = 2
 
 [node name="GridView" parent="." instance=ExtResource("5_npwm7")]

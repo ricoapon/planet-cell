@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwen6m7xxikxj"]
+
+[ext_resource type="Script" uid="uid://b6knoyd2ouv2x" path="res://scenes/components/output/EditOrderedOutputView.gd" id="1_unm2l"]
+
+[node name="EditOrderedOutputView" type="VBoxContainer"]
+offset_right = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+script = ExtResource("1_unm2l")
+
+[node name="AddRow" type="Button" parent="."]
+layout_mode = 2
+text = "+"
+
+[connection signal="pressed" from="AddRow" to="." method="_on_add_row_pressed"]

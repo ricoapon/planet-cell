@@ -1,5 +1,5 @@
 class_name SingleOutputView
-extends Control
+extends HBoxContainer
 
 @onready var SingleColorViewScene = preload("res://scenes/components/output/SingleColorView.tscn")
 
@@ -16,7 +16,7 @@ func init(_actual_output: SingleOutput, _expected_output: SingleOutput):
 	
 	custom_minimum_size = Vector2(100, 40)
 	for color in SingleOutput.OutputColor.values():
-		if expected_output.times_color_is_present(color) > 0:
+		if _should_show_color(color):
 				var view: SingleColorView = SingleColorViewScene.instantiate()
 				add_child(view)
 				view.init(color, actual_output.times_color_is_present(color), expected_output.times_color_is_present(color))
@@ -24,3 +24,6 @@ func init(_actual_output: SingleOutput, _expected_output: SingleOutput):
 	if not get_children().is_empty():
 		(get_child(0) as SingleColorView).use_rounded_corners_left()
 		(get_child(-1) as SingleColorView).use_rounded_corners_right()
+
+func _should_show_color(color) -> bool:
+	return expected_output.times_color_is_present(color) > 0

@@ -15,7 +15,13 @@ func init(_actual_ordered_output: OrderedOutput, _expected_ordered_output: Order
 		actual_ordered_output = OrderedOutput.new()
 	
 	for i in expected_ordered_output.outputs().size():
-		var output_view: SingleOutputView = SingleOutputViewScene.instantiate()
-		add_child(output_view)
-		output_view.init(actual_ordered_output.outputs()[i], expected_ordered_output.outputs()[i])
-		output_view.size = Vector2(100, 40)
+		var actual_output = null
+		if actual_ordered_output.outputs().size() > i:
+			actual_output = actual_ordered_output.outputs()[i]
+		add_child_output(actual_output, expected_ordered_output.outputs()[i])
+
+func add_child_output(actual_output: SingleOutput, expected_output: SingleOutput):
+	var output_view: SingleOutputView = SingleOutputViewScene.instantiate()
+	add_child(output_view)
+	output_view.init(actual_output, expected_output)
+	output_view.size = Vector2(100, 40)
