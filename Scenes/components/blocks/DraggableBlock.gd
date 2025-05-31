@@ -1,9 +1,10 @@
-extends TextureRect
+extends Panel
 
 @export var block_type: AbstractBlock.Type
 
 func _ready():
-	texture = BlockTextures.get_texture_for_type(block_type)
+	add_theme_stylebox_override("panel", BlockTextures.get_theme(block_type))
+	$Label.text = BlockTextures.get_text(block_type)
 
 func _get_drag_data(_at_position: Vector2):
 	var preview = self.duplicate()

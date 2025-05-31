@@ -7,17 +7,17 @@ var view: GridExecutionView
 func _ready():
 	# TODO: Have this until we can modify it in the GUI.
 	var output = SingleOutput.new()
-	output.add_color(SingleOutput.OutputColor.YELLOW, 1)
+	output.add_color(SingleOutput.OutputColor.GREEN, 1)
 	var expected_output = OrderedOutput.new()
 	expected_output.next_row()
 	expected_output.add_output_to_current_row(output)
 	$Middle/GridView.grid.set_expected_output(expected_output)
 	
 	var row1 = SingleOutput.new()
-	row1.add_color(SingleOutput.OutputColor.YELLOW, 1)
+	row1.add_color(SingleOutput.OutputColor.GREEN, 1)
 	row1.add_color(SingleOutput.OutputColor.RED, 2)
 	var row2 = SingleOutput.new()
-	row2.add_color(SingleOutput.OutputColor.YELLOW, 4)
+	row2.add_color(SingleOutput.OutputColor.GREEN, 4)
 	var ordered_output = OrderedOutput.new()
 	ordered_output.next_row()
 	ordered_output.add_output_to_current_row(row1)

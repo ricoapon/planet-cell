@@ -37,8 +37,14 @@ func _draw():
 
 func place_block(coordinate: Coordinate, block: AbstractBlock):
 	var block_scene: BlockView = BlockScene.instantiate()
-	block_scene.init(coordinate, CELL_SIZE, block)
-	block_scene.position = Vector2(coordinate.x, coordinate.y) * (CELL_SIZE + spacing)
+	block_scene.init(coordinate, block)
+	
+	# The block is slightly smaller than the drawn blocks. So we need some calculations.
+	var top_left = Vector2(coordinate.x, coordinate.y) * (CELL_SIZE + spacing)
+	var extra = (CELL_SIZE - block_scene.ACTUAL_SIZE) / 2.0
+	var top_left_adjusted = top_left + Vector2(extra, extra)
+	block_scene.position = top_left_adjusted
+	
 	grid.add_block(coordinate, block)
 	$BlockContainer.add_child(block_scene)
 	blocks[coordinate] = block_scene

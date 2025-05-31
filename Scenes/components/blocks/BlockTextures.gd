@@ -1,17 +1,35 @@
+# Later on I should use actual textures. For now, I will just color it.
 class_name BlockTextures
+extends RefCounted
 
-static var BLOCK_TEXTURE: Dictionary[AbstractBlock.Type, Texture2D] = {
-	AbstractBlock.Type.STARTER: preload("res://assets/blocks/environment_04.png"),
-	AbstractBlock.Type.OUTPUT: preload("res://assets/blocks/environment_01.png"),
-	AbstractBlock.Type.SPLIT: preload("res://assets/blocks/environment_07.png")
-}
+const CORNER_RADIUS = 5
 
-static func get_texture_for_block(block: AbstractBlock) -> Texture2D:
-	for type in BLOCK_TEXTURE.keys():
-		if block.type() == type:
-			return BLOCK_TEXTURE[type]
-	push_error("Could not find texture for block ", block.type())
-	return null
+static func get_theme(block_type: AbstractBlock.Type) -> StyleBoxFlat:
+	var style_box_flat: StyleBoxFlat = StyleBoxFlat.new()
+	style_box_flat.corner_radius_top_left = CORNER_RADIUS
+	style_box_flat.corner_radius_top_right = CORNER_RADIUS
+	style_box_flat.corner_radius_bottom_left = CORNER_RADIUS
+	style_box_flat.corner_radius_bottom_right = CORNER_RADIUS
+	style_box_flat.set_corner_detail(10)
 
-static func get_texture_for_type(type: AbstractBlock.Type) -> Texture2D:
-	return BLOCK_TEXTURE[type]
+	match block_type:
+		AbstractBlock.Type.STARTER:
+			style_box_flat.bg_color = Color.BLACK
+		AbstractBlock.Type.SPLIT:
+			style_box_flat.bg_color = Color.BLACK
+		AbstractBlock.Type.OUTPUT:
+			style_box_flat.bg_color = Color.BLACK
+
+	return style_box_flat
+
+static func get_text(block_type: AbstractBlock.Type) -> String:
+	match block_type:
+		AbstractBlock.Type.STARTER:
+			return "S"
+		AbstractBlock.Type.SPLIT:
+			return "+"
+		AbstractBlock.Type.OUTPUT:
+			return "O"
+		_:
+			push_error("Found block type that is not updated in enum", block_type)
+			return "X"

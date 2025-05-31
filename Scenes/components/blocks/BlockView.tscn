@@ -1,17 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ch60wr0xnnchv"]
+[gd_scene load_steps=2 format=3 uid="uid://ch60wr0xnnchv"]
 
 [ext_resource type="Script" uid="uid://cnn6jbl3n8cdc" path="res://scenes/components/blocks/BlockView.gd" id="1_yn5ml"]
-[ext_resource type="Texture2D" uid="uid://dbagaicdpyvet" path="res://assets/blocks/environment_01.png" id="2_q2jkb"]
 
-[node name="BlockView" type="ColorRect"]
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-color = Color(0, 0, 0, 0)
+[node name="BlockView" type="Panel"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
 script = ExtResource("1_yn5ml")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("2_q2jkb")
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1

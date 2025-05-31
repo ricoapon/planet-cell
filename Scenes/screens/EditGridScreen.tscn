@@ -57,17 +57,19 @@ text = "BLOCKS"
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="DraggableBlock" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+[node name="Starter" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
 layout_mode = 2
+block_type = 2
 
-[node name="DraggableBlock2" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+[node name="Output" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 
-[node name="DraggableBlock" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
+[node name="Split" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
 layout_mode = 2
+block_type = 1
 
 [node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2
