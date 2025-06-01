@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3nr5lhkpy4u"]
+
+[ext_resource type="Script" uid="uid://cd0lpjmrxyc0n" path="res://scenes/screens/PlayGridScreen.gd" id="1_xs8fs"]
+[ext_resource type="Texture2D" uid="uid://bjwctq5vw5sjq" path="res://assets/Background.jpg" id="2_uhxw8"]
+[ext_resource type="PackedScene" uid="uid://dc4mry44mnibi" path="res://scenes/components/menu/SidePanel.tscn" id="3_5x7gv"]
+[ext_resource type="PackedScene" uid="uid://8nqls1sw4xn" path="res://scenes/components/menu/ButtonWithIcon.tscn" id="4_mgtm6"]
+[ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/components/blocks/DraggableBlock.tscn" id="5_n6jqo"]
+[ext_resource type="PackedScene" uid="uid://b7ack6a2rvejj" path="res://scenes/components/output/OrderedOutputView.tscn" id="6_uhxw8"]
+[ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="7_iw852"]
+
+[node name="Play" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1024.0
+offset_bottom = 768.0
+script = ExtResource("1_xs8fs")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 768.0
+texture = ExtResource("2_uhxw8")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 160.0
+offset_bottom = 768.0
+theme_override_constants/separation = 20
+
+[node name="ActionsSidePanel" parent="VBoxContainer" instance=ExtResource("3_5x7gv")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="EditorButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("4_mgtm6")]
+layout_mode = 2
+text = "GO TO EDITOR"
+
+[node name="StepButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_mgtm6")]
+layout_mode = 2
+text = "STEP"
+
+[node name="StopButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("4_mgtm6")]
+layout_mode = 2
+disabled = true
+text = "STOP"
+
+[node name="SpeedButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="3" instance=ExtResource("4_mgtm6")]
+layout_mode = 2
+text = "SPEED x1"
+
+[node name="BlocksSidePanel" parent="VBoxContainer" instance=ExtResource("3_5x7gv")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/Panel" index="0"]
+text = "BLOCKS"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Split" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("5_n6jqo")]
+layout_mode = 2
+block_type = 1
+
+[node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("3_5x7gv")]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Label" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/Panel" index="0"]
+text = "EXPECTED"
+
+[node name="OrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_uhxw8")]
+layout_mode = 2
+
+[node name="Grids" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridView" parent="Grids" instance=ExtResource("7_iw852")]
+offset_left = 265.0
+offset_top = 37.0
+offset_right = 983.0
+offset_bottom = 737.0
+
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StepButton" to="." method="_on_step_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StopButton" to="." method="_on_stop_button_pressed"]
+
+[editable path="VBoxContainer/ActionsSidePanel"]
+[editable path="VBoxContainer/BlocksSidePanel"]
+[editable path="VBoxContainer/ExpectedSidePanel"]

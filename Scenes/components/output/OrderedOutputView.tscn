@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7ack6a2rvejj"]
+
+[ext_resource type="Script" uid="uid://b318d8k0berhs" path="res://scenes/components/output/OrderedOutputView.gd" id="1_7fhat"]
+
+[node name="OrderedOutputView" type="VBoxContainer"]
+offset_right = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+script = ExtResource("1_7fhat")

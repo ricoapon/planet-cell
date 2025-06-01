@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://cky1vttdixbsd"]
+
+[ext_resource type="Texture2D" uid="uid://bjwctq5vw5sjq" path="res://assets/Background.jpg" id="1_r23i0"]
+[ext_resource type="Script" uid="uid://b66xlanl20bu2" path="res://scenes/screens/EditGridScreen.gd" id="1_s8851"]
+[ext_resource type="PackedScene" uid="uid://dc4mry44mnibi" path="res://scenes/components/menu/SidePanel.tscn" id="2_4v46g"]
+[ext_resource type="PackedScene" uid="uid://8nqls1sw4xn" path="res://scenes/components/menu/ButtonWithIcon.tscn" id="3_7god6"]
+[ext_resource type="PackedScene" uid="uid://qppng80r2fw1" path="res://scenes/components/blocks/DraggableBlock.tscn" id="4_gaef8"]
+[ext_resource type="PackedScene" uid="uid://cj5037ryd1xpn" path="res://scenes/components/grids/GridView.tscn" id="5_npwm7"]
+[ext_resource type="PackedScene" uid="uid://cwen6m7xxikxj" path="res://scenes/components/output/EditOrderedOutputView.tscn" id="6_s8851"]
+
+[node name="EditGridScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1024.0
+offset_bottom = 768.0
+script = ExtResource("1_s8851")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 768.0
+texture = ExtResource("1_r23i0")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 160.0
+offset_bottom = 768.0
+theme_override_constants/separation = 20
+
+[node name="ActionsSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_7god6")]
+layout_mode = 2
+text = "GO TO PLAY"
+
+[node name="ExportImportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
+layout_mode = 2
+text = "EXPORT IMPORT"
+
+[node name="BlocksSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/Panel" index="0"]
+text = "BLOCKS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Starter" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+block_type = 2
+
+[node name="Output" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="Split" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+block_type = 1
+
+[node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Label" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/Panel" index="0"]
+text = "EXPECTED"
+
+[node name="EditOrderedOutputView" parent="VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("6_s8851")]
+layout_mode = 2
+
+[node name="GridView" parent="." instance=ExtResource("5_npwm7")]
+offset_left = 265.0
+offset_top = 37.0
+offset_right = 983.0
+offset_bottom = 737.0
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/ExportImportButton" to="." method="_on_export_button_pressed"]
+
+[editable path="VBoxContainer/ActionsSidePanel"]
+[editable path="VBoxContainer/BlocksSidePanel"]
+[editable path="VBoxContainer/ExpectedSidePanel"]

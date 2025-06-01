@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://41d2aev172hl"]
+
+[ext_resource type="Script" uid="uid://cjwcr58c6wivc" path="res://scenes/components/output/SingleOutputView.gd" id="1_dmjau"]
+
+[node name="SingleOutputView" type="HBoxContainer"]
+offset_right = 140.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_dmjau")

@@ -1,5 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+**/*.tmp
+
+# IntelliJ
 .idea
-.gradle
-build
-kotlin-js-store
-.kotlin
