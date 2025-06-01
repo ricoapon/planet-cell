@@ -39,3 +39,12 @@ func as_string() -> String:
 
 func _to_string() -> String:
 	return "Edge[%s]" % [as_string()]
+
+func to_dict() -> Dictionary:
+	return {
+		"from": from.to_dict(),
+		"to": to.to_dict()
+	}
+
+static func from_dict(data: Dictionary) -> Edge:
+	return Edge.new(Coordinate.from_dict(data["from"]), Coordinate.from_dict(data["to"]))

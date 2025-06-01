@@ -18,3 +18,8 @@ func get_output() -> SingleOutput:
 
 func type() -> Type:
 	return Type.OUTPUT
+
+func to_dict() -> Dictionary:
+	var dict = super.to_dict()
+	dict["color"] = color
+	return dict

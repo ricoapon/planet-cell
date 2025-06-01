@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ddv53rdebds82" path="res://scenes/components/popups/ExportImportPopup.gd" id="1_fkuff"]
 
 [node name="ExportImportPopup" type="PopupPanel"]
-size = Vector2i(390, 114)
+size = Vector2i(390, 120)
 visible = true
 script = ExtResource("1_fkuff")
 
@@ -11,7 +11,7 @@ script = ExtResource("1_fkuff")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 386.0
-offset_bottom = 110.0
+offset_bottom = 116.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -23,7 +23,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer/HBoxCode"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "hello"

@@ -25,7 +25,13 @@ func _on_play_button_pressed() -> void:
 func _on_export_button_pressed() -> void:
 	var export_import_popup: ExportImportPopup = ExportImportPopupScene.instantiate()
 	add_child(export_import_popup)
-	export_import_popup.init("value")
-	export_import_popup.load_grid.connect(print)
+	export_import_popup.init(GridCode.convert_to_code(grid))
+	export_import_popup.load_grid.connect(_init_grid_code)
 	export_import_popup.popup_centered()
 	export_import_popup.show()
+
+func _init_grid_code(code: String):
+	var new_grid = GridCode.convert_to_grid(code)
+	# Null means error situation.
+	if new_grid != null:
+		init(new_grid)

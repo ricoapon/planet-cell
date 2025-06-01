@@ -17,3 +17,20 @@ func get_output() -> SingleOutput:
 func type() -> Type:
 	push_error("type() should be implemented in subclass!")
 	return Type.STARTER
+
+func to_dict() -> Dictionary:
+	return {
+		"type" : type()
+	}
+
+static func from_dict(data: Dictionary) -> AbstractBlock:
+	match AbstractBlock.Type.values()[data["type"]]:
+		Type.OUTPUT:
+			return OutputBlock.new(data["color"])
+		Type.SPLIT:
+			return SplitBlock.new()
+		Type.STARTER:
+			return StarterBlock.new()
+		_:
+			push_error("Type not found when converting dictionary to AbstractBlock: ", data["type"])
+			return AbstractBlock.new()

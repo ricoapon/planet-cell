@@ -35,3 +35,15 @@ func _to_string() -> String:
 	for output in _rows:
 		result += output._to_string() + ","
 	return result + "]"
+
+func to_dict() -> Dictionary:
+	return {
+		"rows": _rows.map(func(output: SingleOutput) -> Dictionary: return output.to_dict())
+	}
+
+static func from_dict(data: Dictionary) -> OrderedOutput:
+	var result = OrderedOutput.new()
+	for output_dict in data["rows"]:
+		var actual_row = SingleOutput.from_dict(output_dict)
+		result._rows.append(actual_row)
+	return result

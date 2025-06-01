@@ -4,6 +4,7 @@ func _ready():
 	test_edge_set()
 	test_single_output()
 	test_ordered_output()
+	test_json_enums()
 	get_tree().quit()
 
 func test_edge_set():
@@ -53,6 +54,15 @@ func test_ordered_output():
 	assert(ordered_output1.fully_contains(matches))
 	assert(not ordered_output1.fully_contains(mismatch))
 	
+func test_json_enums():
+	var single_output_before = SingleOutput.new()
+	single_output_before.add_color(SingleOutput.OutputColor.GREEN, 3)
+	var single_output_after = SingleOutput.from_dict(single_output_before.to_dict())
+	assert(single_output_after.times_color_is_present(SingleOutput.OutputColor.GREEN) == 3)
+	assert(single_output_after.times_color_is_present(SingleOutput.OutputColor.RED) == 0)
 	
-	
-	
+	var ordered_output_before = OrderedOutput.new()
+	ordered_output_before.next_row()
+	ordered_output_before.add_output_to_current_row(single_output_before)
+	var ordered_output_after = OrderedOutput.from_dict(ordered_output_before.to_dict())
+	assert(ordered_output_after.outputs()[0].equals(single_output_before))

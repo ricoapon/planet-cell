@@ -7,6 +7,11 @@ var actual_ordered_output: OrderedOutput
 var expected_ordered_output: OrderedOutput
 
 func init(_actual_ordered_output: OrderedOutput, _expected_ordered_output: OrderedOutput):
+	# When we initialise again with new data, we want to override all the data.
+	# We need to remove all children, except for the button.
+	for i in get_children().size() - 1:
+		get_children()[i].queue_free()
+	
 	expected_ordered_output = _expected_ordered_output
 	# This happens on the edit screen.
 	if _actual_ordered_output != null:

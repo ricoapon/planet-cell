@@ -35,3 +35,14 @@ func _to_string() -> String:
 			continue
 		result += SingleOutput.OutputColor.keys()[color] + ":" + str(_colors[color]) + ","
 	return result + "]"
+
+func to_dict() -> Dictionary:
+	return _colors
+
+static func from_dict(data: Dictionary) -> SingleOutput:
+	var result = SingleOutput.new()
+	# Data is the right dictionary, but the keys are enum values that are integers
+	# stored as strings. Manually adding elements is the easiest way to convert.
+	for key in data.keys():
+		result._colors[OutputColor.values()[int(key)]] = int(data[key])
+	return result
