@@ -1,6 +1,8 @@
 class_name EditGridScreen
 extends Control
 
+@onready var ExportImportPopupScene = preload("res://scenes/components/popups/ExportImportPopup.tscn")
+
 var grid: Grid
 
 func init(_grid: Grid):
@@ -18,3 +20,12 @@ func _on_play_button_pressed() -> void:
 		popup.popup_centered()
 		return
 	go_to_play_screen.emit(grid)
+
+
+func _on_export_button_pressed() -> void:
+	var export_import_popup: ExportImportPopup = ExportImportPopupScene.instantiate()
+	add_child(export_import_popup)
+	export_import_popup.init("value")
+	export_import_popup.load_grid.connect(print)
+	export_import_popup.popup_centered()
+	export_import_popup.show()

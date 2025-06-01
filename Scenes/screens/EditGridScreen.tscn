@@ -37,13 +37,9 @@ size_flags_vertical = 0
 layout_mode = 2
 text = "GO TO PLAY"
 
-[node name="ExportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
+[node name="ExportImportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_7god6")]
 layout_mode = 2
-text = "EXPORT"
-
-[node name="ImportButton" parent="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_7god6")]
-layout_mode = 2
-text = "IMPORT"
+text = "EXPORT IMPORT"
 
 [node name="BlocksSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2
@@ -89,6 +85,7 @@ offset_bottom = 737.0
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/ExportImportButton" to="." method="_on_export_button_pressed"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]
 [editable path="VBoxContainer/BlocksSidePanel"]
