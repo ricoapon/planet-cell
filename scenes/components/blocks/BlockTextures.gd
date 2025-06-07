@@ -4,7 +4,7 @@ extends RefCounted
 
 const CORNER_RADIUS = 5
 
-static func get_theme(block_type: AbstractBlock.Type) -> StyleBoxFlat:
+static func get_theme(block: AbstractBlock) -> StyleBoxFlat:
 	var style_box_flat: StyleBoxFlat = StyleBoxFlat.new()
 	style_box_flat.corner_radius_top_left = CORNER_RADIUS
 	style_box_flat.corner_radius_top_right = CORNER_RADIUS
@@ -12,13 +12,14 @@ static func get_theme(block_type: AbstractBlock.Type) -> StyleBoxFlat:
 	style_box_flat.corner_radius_bottom_right = CORNER_RADIUS
 	style_box_flat.set_corner_detail(10)
 
-	match block_type:
+	match block.type():
 		AbstractBlock.Type.STARTER:
 			style_box_flat.bg_color = Color.BLACK
 		AbstractBlock.Type.SPLIT:
 			style_box_flat.bg_color = Color.BLACK
 		AbstractBlock.Type.OUTPUT:
-			style_box_flat.bg_color = Color.BLACK
+			var output_block: OutputBlock = block
+			style_box_flat.bg_color = SingleColorView.OUTPUT_TO_COLOR[output_block.color]
 
 	return style_box_flat
 

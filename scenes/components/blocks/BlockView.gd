@@ -14,7 +14,7 @@ func init(_coordinate: Coordinate, _block: AbstractBlock):
 	block = _block
 
 func _ready():
-	add_theme_stylebox_override("panel", BlockTextures.get_theme(block.type()))
+	add_theme_stylebox_override("panel", BlockTextures.get_theme(block))
 	$Label.text = BlockTextures.get_text(block.type())
 
 signal drag_start(coordinate: Coordinate)

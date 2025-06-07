@@ -52,23 +52,44 @@ size_flags_vertical = 0
 [node name="Label" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/Panel" index="0"]
 text = "BLOCKS"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
-theme_override_constants/separation = 12
 
-[node name="Starter" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+[node name="Starter" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("4_gaef8")]
 layout_mode = 2
+size_flags_horizontal = 6
 block_type = 2
 
-[node name="Output" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_gaef8")]
+[node name="OutputRed" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="OutputBlue" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+size_flags_horizontal = 6
+output_color = 1
+
+[node name="OutputGreen" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("4_gaef8")]
+layout_mode = 2
+size_flags_horizontal = 6
+output_color = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 
 [node name="Split" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_gaef8")]
 layout_mode = 2
+size_flags_horizontal = 6
 block_type = 1
+
+[node name="InvisibleForPadding" type="Panel" parent="VBoxContainer/BlocksSidePanel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+z_index = -1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 6
 
 [node name="ExpectedSidePanel" parent="VBoxContainer" instance=ExtResource("2_4v46g")]
 layout_mode = 2

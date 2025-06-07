@@ -1,7 +1,7 @@
 class_name SingleColorView
 extends Panel
 
-var OUTPUT_TO_COLOR: Dictionary[SingleOutput.OutputColor, Color] = {
+static var OUTPUT_TO_COLOR: Dictionary[SingleOutput.OutputColor, Color] = {
 	SingleOutput.OutputColor.RED: Color.html("#dc3545"),
 	SingleOutput.OutputColor.BLUE: Color.html("#0d6efd"),
 	SingleOutput.OutputColor.GREEN: Color.html("#20c997")
