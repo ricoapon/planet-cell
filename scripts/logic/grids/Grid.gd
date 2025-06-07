@@ -39,6 +39,7 @@ func can_add_edge(from: Coordinate, to: Coordinate) -> bool:
 	# PoweredEdge has a nice way to determine all the coordinates between two
 	# points, so we use that class.
 	var powered_edge = PoweredEdge.new(from, to, 1)
+	powered_edge.step = 1
 	
 	# The first and last coordinates should be blocks.
 	if not grid.has(from.as_string()) or not grid.has(to.as_string()):
