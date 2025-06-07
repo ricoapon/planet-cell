@@ -9,6 +9,9 @@ const CELL_SIZE = 64
 var blocks: Dictionary[Coordinate, BlockView] = {}
 var edge_views: EdgeViewDictionary = EdgeViewDictionary.new()
 
+# Determines whether we can delete blocks like start/output.
+var edit_mode: bool = false
+
 # Variables for the boxes.
 var spacing = 6
 var corner_radius = 6
@@ -23,7 +26,8 @@ func create_style_box_flat() -> StyleBoxFlat:
 	style_box_flat.set_corner_detail(10)
 	return style_box_flat
 
-func init(_grid: Grid):
+func init(_grid: Grid, _edit_mode: bool = false):
+	edit_mode = _edit_mode
 	_init_grid(_grid)
 	# Make sure the grid is the size we need for drag and drop stuff.
 	size = Vector2(grid.width * (CELL_SIZE + spacing), grid.height * (CELL_SIZE + spacing))
@@ -81,6 +85,12 @@ func _drop_data(at_position, data):
 
 func on_erase_block(coordinate: Coordinate):
 	var block_scene = blocks[coordinate]
+	var type: AbstractBlock.Type = block_scene.block.type()
+	
+	# Do not allow removing certain block types when playing regularly.
+	if not edit_mode and (type == AbstractBlock.Type.OUTPUT or type == AbstractBlock.Type.STARTER):
+		return
+	
 	block_scene.queue_free()
 	blocks.erase(coordinate)
 	grid.erase_block(coordinate)

@@ -11,7 +11,7 @@ func init(_grid: Grid):
 	grid = _grid
 	var edit_ordered_output_view = $VBoxContainer/ExpectedSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditOrderedOutputView
 	edit_ordered_output_view.init(null, grid.expected_output)
-	$GridView.init(grid)
+	$GridView.init(grid, true)
 
 signal go_to_play_screen(grid: Grid)
 
