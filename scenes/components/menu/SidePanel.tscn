@@ -2,11 +2,14 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eic27"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
+corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nrlv3"]
 bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_detail = 10
 
