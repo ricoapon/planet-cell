@@ -3,6 +3,8 @@ extends Control
 
 @onready var ExportImportPopupScene = preload("res://scenes/components/popups/ExportImportPopup.tscn")
 
+signal back
+
 var grid: Grid
 
 func init(_grid: Grid):
@@ -35,3 +37,6 @@ func _init_grid_code(code: String):
 	# Null means error situation.
 	if new_grid != null:
 		init(new_grid)
+
+func _on_back_to_menu_pressed() -> void:
+	back.emit()

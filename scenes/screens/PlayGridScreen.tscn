@@ -24,10 +24,14 @@ expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 40.0
-offset_right = 160.0
-offset_bottom = 768.0
+offset_top = 20.0
+offset_right = 172.0
+offset_bottom = 769.0
 theme_override_constants/separation = 20
+
+[node name="BackToMenu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "BACK TO MENU"
 
 [node name="ActionsSidePanel" parent="VBoxContainer" instance=ExtResource("3_5x7gv")]
 layout_mode = 2
@@ -106,6 +110,7 @@ auto_translate_mode = 1
 position = Vector2i(0, 36)
 dialog_text = "The output is incorrect. Try again."
 
+[connection signal="pressed" from="VBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StepButton" to="." method="_on_step_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StopButton" to="." method="_on_stop"]

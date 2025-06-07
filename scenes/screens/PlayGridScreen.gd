@@ -13,6 +13,7 @@ var editor_mode: bool
 
 signal next_level
 signal go_to_editor(grid: Grid)
+signal back
 
 func init(_grid: Grid, _editor_mode: bool = false):
 	grid = _grid
@@ -48,3 +49,6 @@ func _on_stop():
 	grid_execution_view.queue_free()
 	grid_execution_view = null
 	StopButton.disabled = true
+
+func _on_back_to_menu_pressed() -> void:
+	back.emit()

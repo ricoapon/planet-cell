@@ -29,6 +29,7 @@ func load_editor(grid: Grid):
 	add_child(current_screen)
 	current_screen.init(grid)
 	current_screen.connect("go_to_play_screen", load_play_from_editor)
+	current_screen.connect("back", load_menu_screen)
 
 func load_play_from_editor(grid: Grid):
 	clear()
@@ -36,12 +37,14 @@ func load_play_from_editor(grid: Grid):
 	add_child(current_screen)
 	current_screen.init(grid, true)
 	current_screen.connect("go_to_editor", load_editor)
+	current_screen.connect("back", load_menu_screen)
 
 func load_select_level():
 	clear()
 	current_screen = SelectLevelScreenScene.instantiate()
 	add_child(current_screen)
 	current_screen.connect("go_to_level", load_level)
+	current_screen.connect("back", load_menu_screen)
 
 func load_level(level_index: int):
 	clear()
@@ -49,6 +52,7 @@ func load_level(level_index: int):
 	current_screen = PlayGridScreenScene.instantiate()
 	add_child(current_screen)
 	current_screen.init(grid)
+	current_screen.connect("back", load_select_level)
 	if Level.all.size() > level_index + 1:
 		current_screen.connect("next_level", func(): load_level(level_index + 1))
 	else:
