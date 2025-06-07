@@ -12,6 +12,7 @@ func init(_grid_view: GridView, _ordered_output_view: OrderedOutputView):
 	grid = grid_view.grid
 	grid_execution = GridExecution.new(grid)
 	z_index = 3
+	_update_output_view()
 
 	position = grid_view.position
 
@@ -27,30 +28,13 @@ func has_next_step() -> bool:
 	return grid_execution.has_next_step()
 
 func _draw():
-	for powered_edge in grid_execution.next_powered_edges:
-		# Starting point is with edge null.
-		if powered_edge.from == null:
-			draw_circle(to_middle_vector(powered_edge.to.x, powered_edge.to.y), 10, Color.RED)
-			continue
-		
-		var x = powered_edge.from.x
-		var y = powered_edge.from.y
-		if powered_edge.from.x == powered_edge.to.x:
-			if powered_edge.from.y < powered_edge.to.y:
-				y += powered_edge.step
-			else:
-				y -= powered_edge.step
-		else:
-			if powered_edge.from.x < powered_edge.to.x:
-				x += powered_edge.step
-			else:
-				x -= powered_edge.step
-		
-		var middle = to_middle_vector(x, y)
+	for active_coordinate in grid_execution.show_as_active.keys():
+		var middle = to_middle_vector(active_coordinate)
 		draw_circle(middle, 10, Color.RED)
 		
 		# TODO: Find a better way to display power.
-		draw_string(get_theme_default_font(), middle, str(powered_edge.power))
+		var power = grid_execution.show_as_active.get_value(active_coordinate)
+		draw_string(get_theme_default_font(), middle, str(power))
 
-func to_middle_vector(x: int, y: int) -> Vector2:
-	return GridCalculations.determine_middle(Coordinate.new(x, y), grid_view.CELL_SIZE, grid_view.spacing)
+func to_middle_vector(coordinate: Coordinate) -> Vector2:
+	return GridCalculations.determine_middle(coordinate, grid_view.CELL_SIZE, grid_view.spacing)

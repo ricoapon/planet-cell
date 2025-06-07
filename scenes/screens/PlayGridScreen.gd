@@ -24,11 +24,10 @@ func _on_step_button_pressed() -> void:
 		grid_execution_view.init($Grids/GridView, ordered_output_view)
 		$Grids.add_child(grid_execution_view)
 		StopButton.disabled = false
-	
-	grid_execution_view.next_step()
-	if not grid_execution_view.has_next_step():
-		_on_stop_button_pressed()
-
+	else:
+		grid_execution_view.next_step()
+		if not grid_execution_view.has_next_step():
+			_on_stop_button_pressed()
 
 func _on_stop_button_pressed() -> void:
 	grid_execution_view.queue_free()
