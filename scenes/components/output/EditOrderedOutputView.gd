@@ -11,6 +11,10 @@ func init(_actual_ordered_output: OrderedOutput, _expected_ordered_output: Order
 func move_button_down():
 	move_child($AddRow, get_child_count() - 1)
 
+func _remove_all_children():
+	# Remove all children, except for the button that we want to keep.
+	for i in get_children().size() - 1:
+		get_children()[i].queue_free()
 
 func _on_add_row_pressed() -> void:
 	var new_output = SingleOutput.new()
