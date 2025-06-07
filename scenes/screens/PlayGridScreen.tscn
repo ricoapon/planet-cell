@@ -85,9 +85,23 @@ offset_top = 37.0
 offset_right = 983.0
 offset_bottom = 737.0
 
+[node name="WonAcceptDialog" type="AcceptDialog" parent="."]
+position = Vector2i(0, 36)
+ok_button_text = "Next level"
+dialog_text = "You completed the level!"
+
+[node name="LostAcceptDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1
+position = Vector2i(0, 36)
+dialog_text = "The output is incorrect. Try again."
+
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StepButton" to="." method="_on_step_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/StopButton" to="." method="_on_stop"]
+[connection signal="canceled" from="WonAcceptDialog" to="." method="_on_stop"]
+[connection signal="confirmed" from="WonAcceptDialog" to="." method="_on_next_level"]
+[connection signal="canceled" from="LostAcceptDialog" to="." method="_on_stop"]
+[connection signal="confirmed" from="LostAcceptDialog" to="." method="_on_stop"]
 
 [editable path="VBoxContainer/ActionsSidePanel"]
 [editable path="VBoxContainer/BlocksSidePanel"]
