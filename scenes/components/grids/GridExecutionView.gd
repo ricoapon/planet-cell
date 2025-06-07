@@ -24,8 +24,8 @@ func next_step():
 	_update_output_view()
 	queue_redraw()
 
-func has_next_step() -> bool:
-	return grid_execution.has_next_step()
+func state() -> GridExecution.State:
+	return grid_execution.state
 
 func _draw():
 	for active_coordinate in grid_execution.show_as_active.keys():

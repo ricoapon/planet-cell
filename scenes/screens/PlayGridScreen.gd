@@ -26,8 +26,12 @@ func _on_step_button_pressed() -> void:
 		StopButton.disabled = false
 	else:
 		grid_execution_view.next_step()
-		if not grid_execution_view.has_next_step():
-			_on_stop_button_pressed()
+		if grid_execution_view.state() == GridExecution.State.WON:
+			print("Won!")
+			# TODO: show win message.
+		elif grid_execution_view.state() == GridExecution.State.LOST:
+			print("Lost :(")
+			# TODO: show lost message.
 
 func _on_stop_button_pressed() -> void:
 	grid_execution_view.queue_free()

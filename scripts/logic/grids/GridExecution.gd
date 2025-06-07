@@ -1,11 +1,18 @@
 class_name GridExecution
 extends RefCounted
 
+enum State {
+	PLAYING,
+	LOST,
+	WON
+}
+
 var grid: Grid
 var next_powered_edges: Array[PoweredEdge]
 var current_output: OrderedOutput = OrderedOutput.new()
 # Maps a coordinate to power.
 var show_as_active: CoordinateDictionary
+var state: State = State.PLAYING
 
 func _init(_grid: Grid):
 	grid = _grid
@@ -59,13 +66,13 @@ func next_step():
 		for output in new_output:
 			current_output.add_output_to_current_row(output)
 	
-	if not grid.expected_output.fully_contains(current_output):
-		# Execution failed, so we stop.
-		print("Grid Execution - Failure")
-		next_powered_edges = []
 	if grid.expected_output.equals(current_output):
-		print("Grid Execution - Finished correctly")
 		next_powered_edges = []
+		state = State.WON
+	# Lose if the output doesn't match or the execution finished, but output wasn't achieved.
+	elif not grid.expected_output.fully_contains(current_output) or next_powered_edges.is_empty():
+		next_powered_edges = []
+		state = State.LOST
 
 # If we have two edges that are at the same step, we should merge it into one with the same power.
 func _merge_powered_edges(powered_edges: Array[PoweredEdge]) -> Array[PoweredEdge]:
@@ -88,6 +95,3 @@ func _find_first_matching(powered_edges: Array[PoweredEdge], similar_edge: Power
 func _determine_next_edges(powered_edge: PoweredEdge) -> Array[Edge]:
 	return grid.neighbours(powered_edge.to).filter(
 		func(e: Edge): return e.as_string() != powered_edge.to_edge().as_string())
-
-func has_next_step() -> bool:
-	return not next_powered_edges.is_empty()
