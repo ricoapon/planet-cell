@@ -25,11 +25,31 @@ func erase_block(coordinate: Coordinate):
 func getBlock(coordinate: Coordinate) -> AbstractBlock:
 	return grid[coordinate.as_string()]
 func add_edge(from: Coordinate, to: Coordinate):
-	edges.add(Edge.new(from, to))
+	if not can_add_edge(from, to):
+		push_error("Cannot add edge between " + from.as_string() + " and " + to.as_string())
+	else:
+		edges.add(Edge.new(from, to))
 func erase_edge(edge: Edge):
 	edges.erase(edge)
 func get_edge(from: Coordinate, to: Coordinate) -> Edge:
 	return edges.find_edge(from, to)
+
+func can_add_edge(from: Coordinate, to: Coordinate) -> bool:
+	# An edge cannot be added if it goes through a block.
+	# PoweredEdge has a nice way to determine all the coordinates between two
+	# points, so we use that class.
+	var powered_edge = PoweredEdge.new(from, to, 1)
+	
+	# The first and last coordinates should be blocks.
+	if not grid.has(from.as_string()) or not grid.has(to.as_string()):
+		return false
+	
+	for i in range(1, powered_edge.length - 1):
+		if grid.has(powered_edge.determine_step_coordinate().as_string()):
+			return false
+		powered_edge.step += 1
+	
+	return true
 
 func neighbours(c: Coordinate) -> Array[Edge]:
 	var result = edges.find_edges_connecting_to(c).filter(func(e): return edges.contains(e)) as Array[Edge]

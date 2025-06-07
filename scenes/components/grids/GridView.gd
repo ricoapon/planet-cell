@@ -118,6 +118,10 @@ func add_edge(from: Coordinate, to: Coordinate):
 	if from.x != to.x and from.y != to.y:
 		return
 	
+	# Do not allow adding an edge that goes through a block.
+	if not grid.can_add_edge(from, to):
+		return
+	
 	grid.add_edge(from, to)
 	var edge = EdgeView.new(from, to, CELL_SIZE, spacing)
 	edge.z_index = 1
