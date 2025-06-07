@@ -17,8 +17,11 @@ func set_expected_output(_expected_output: OrderedOutput):
 	expected_output = _expected_output
 
 func add_block(coordinate: Coordinate, block: AbstractBlock):
-	grid[coordinate.as_string()] = block
-	coordinates[coordinate.as_string()] = coordinate
+	if not can_add_block(coordinate):
+		push_error('Cannot add block on ' + coordinate.as_string())
+	else:
+		grid[coordinate.as_string()] = block
+		coordinates[coordinate.as_string()] = coordinate
 func erase_block(coordinate: Coordinate):
 	grid.erase(coordinate.as_string())
 	coordinates.erase(coordinate.as_string())
@@ -33,6 +36,27 @@ func erase_edge(edge: Edge):
 	edges.erase(edge)
 func get_edge(from: Coordinate, to: Coordinate) -> Edge:
 	return edges.find_edge(from, to)
+
+func can_add_block(coordinate: Coordinate) -> bool:
+	# We can only add a block if:
+	# 1. There is not already a block on that coordinate.
+	# 2. There is no edge going through that coordinate.
+	if grid.has(coordinate.as_string()):
+		return false
+	
+	# The easiest way is to just check all edges. That might not be the most efficient,
+	# but that doesn't really matter for our small game.
+	for edge in edges.edges.values():
+		var powered_edge = PoweredEdge.new(edge.from, edge.to, 1)
+		# Note that we don't need to check the first and last part of the edge.
+		# Those are blocks, so check 1 should have handled that.
+		powered_edge.step = 1
+		for i in range(1, powered_edge.length - 1):
+			if powered_edge.determine_step_coordinate().equals(coordinate):
+				return false
+			powered_edge.step += 1
+	
+	return true
 
 func can_add_edge(from: Coordinate, to: Coordinate) -> bool:
 	# An edge cannot be added if it goes through a block.

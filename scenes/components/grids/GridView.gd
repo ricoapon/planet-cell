@@ -52,6 +52,9 @@ func _draw():
 			draw_style_box(style_box_flat, rect)
 
 func place_block(coordinate: Coordinate, block: AbstractBlock):
+	if not grid.can_add_block(coordinate):
+		return
+	
 	var block_scene: BlockView = BlockScene.instantiate()
 	block_scene.init(coordinate, block)
 	
