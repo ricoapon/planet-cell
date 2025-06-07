@@ -5,7 +5,7 @@ extends Control
 @onready var MenuScreenScene = preload("res://scenes/screens/MenuScreen.tscn")
 @onready var SelectLevelScreenScene = preload("res://scenes/screens/SelectLevelScreen.tscn")
 
-@onready var screen_parent = $CenterContainer/GameplayScreen
+@onready var screen_parent = $CenterContainer/CanvasLayer/GameplayScreen
 var current_screen
 
 func _ready():
