@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://m037x6xw1xv7" path="res://scenes/Main.gd" id="1_o0tnf"]
 [ext_resource type="Texture2D" uid="uid://bjwctq5vw5sjq" path="res://assets/Background.jpg" id="2_upctu"]
 
-[node name="Menu" type="Control"]
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

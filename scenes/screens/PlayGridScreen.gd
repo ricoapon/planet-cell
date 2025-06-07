@@ -9,15 +9,18 @@ extends Control
 
 var grid: Grid
 var grid_execution_view: GridExecutionView
+var editor_mode: bool
 
 signal next_level
+signal go_to_editor(grid: Grid)
 
-func init(_grid: Grid):
+func init(_grid: Grid, _editor_mode: bool = false):
 	grid = _grid
+	editor_mode = _editor_mode
+	if not editor_mode:
+		$VBoxContainer/ActionsSidePanel/VBoxContainer/MarginContainer/VBoxContainer/EditorButton.hide()
 	ordered_output_view.init(null, grid.expected_output)
 	$Grids/GridView.init(grid)
-
-signal go_to_editor(grid: Grid)
 
 func _on_editor_button_pressed() -> void:
 	go_to_editor.emit(grid)
